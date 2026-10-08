@@ -133,6 +133,10 @@ export class BasicInformationPage {
   async expectStatusDraftVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, BasicInformationPage.L.statusDraft), timeoutMs, soft);
   }
+
+  async getInnerTextStatusDraft(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, BasicInformationPage.L.statusDraft));
+  }
   
   async getInnerTextCampaignSetup(): Promise<string> {
     return getTextWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignSetup));
