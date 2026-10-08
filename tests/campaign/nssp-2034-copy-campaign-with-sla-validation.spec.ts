@@ -4,7 +4,7 @@ import testData from '@testdata/test-data.json';
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Launch Copy Campaign opens new campaign in Copy Mode', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage }) => {
   await test.step('Open — Open Login URL', async () => {
-      await page.goto(env.baseURL);
+      await page.goto(env.baseUrl);
     });
     await test.step('Fill — Login email', async () => {
       await loginPage.fillEmail(env.username);
@@ -31,6 +31,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
       await campaignsPage.expectCampaignsVisible();
     });
     await test.step('Fill — Search \'Summer Sale\'', async () => {
+      await campaignsPage.expectSearchVisible();
       await campaignsPage.fillSearch('Summer Sale');
     });
     await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -53,8 +54,8 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await test.step('Click — Click Copy Now', async () => {
       await campaignsPage.clickCopyNow();
     });
-    await test.step('Assert visible — Copy progress spinner shows', async () => {
-      await campaignsPage.expectLoadingImageVisible();
+    await test.step('Assert visible — Copy Campaign Successfully', async () => {
+      await campaignsPage.expectCampaignCopiedSuccessfullyVisible();
     });
     await test.step('Assert hidden — Copy progress spinner hidden', async () => {
       await campaignsPage.expectLoadingImageHidden();
@@ -73,6 +74,22 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     });
     await test.step('Assert visible — Status Draft visible', async () => {
       await basicInformationPage.expectStatusDraftVisible();
+    });
+    await test.step('Click — Go to Campaigns and Search Campaign', async () => {
+      await dashboardPage.clickCampaigns();
+      await campaignsPage.expectLoadingImageHidden();
+      await campaignsPage.expectCampaignsVisible();
+      await campaignsPage.expectSearchVisible();
+      await campaignsPage.fillSearch('Summer Sale');
+      await campaignsPage.expectLoadingImageHidden();
+    });
+    await test.step('Click — Delete Copied Campaign', async () => {
+      await campaignsPage.clickActions();
+      await campaignsPage.clickDeleteDraftMenuOption();
+      await campaignsPage.expectLoadingImageHidden();
+      await campaignsPage.expectDeleteDraftCampaignModalHeaderVisible();
+      await campaignsPage.clickDeleteDraft();
+      await campaignsPage.expectCampaignDeletedSuccessfullyVisible();
     });
 });
 
@@ -105,6 +122,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search \'Summer Sale\'', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Summer Sale');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -117,8 +135,17 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Copy Now', async () => {
     await campaignsPage.clickCopyNow();
   });
+  await test.step('Assert visible — Copy Campaign Successfully', async () => {
+    await campaignsPage.expectCampaignCopiedSuccessfullyVisible();
+  });
   await test.step('Assert hidden — Copy spinner hidden', async () => {
     await campaignsPage.expectLoadingImageHidden();
+  });
+  await test.step('Click — Copied Campaign', async () => {
+    await campaignsPage.clickCopiedCampaignName();
+  });
+  await test.step('Wait for hidden — Wait for spinner hidden', async () => {
+    await campaignsPage.waitForHiddenLoadingImage();
   });
   await test.step('Assert visible — Basic Information visible', async () => {
     await basicInformationPage.expectBasicInformationVisible();
@@ -191,6 +218,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search \'Summer Sale\'', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Summer Sale');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -203,18 +231,46 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Copy Now', async () => {
     await campaignsPage.clickCopyNow();
   });
+  await test.step('Assert visible — Copy Campaign Successfully', async () => {
+    await campaignsPage.expectCampaignCopiedSuccessfullyVisible();
+  });
   await test.step('Assert hidden — Copy spinner hidden', async () => {
     await campaignsPage.expectLoadingImageHidden();
   });
-  await test.step('Assert visible — Basic Information visible', async () => {
-    await basicInformationPage.expectBasicInformationVisible();
+  await test.step('Click — Copied Campaign', async () => {
+    await campaignsPage.clickCopiedCampaignName();
   });
-  await test.step('Assert contains — Status badge shows Draft', async () => {
-    await basicInformationPage.expectBasicInformationContainsText('Draft');
+  await test.step('Wait for hidden — Wait for spinner hidden', async () => {
+    await campaignsPage.waitForHiddenLoadingImage();
+  });
+  await test.step('Assert visible — Basic Information page visible in Copy Mode', async () => {
+    await basicInformationPage.expectSaveDraftVisible();
+  });
+  await test.step('Assert visible — Copy Mode banner visible', async () => {
+    await basicInformationPage.expectCampaignNameHeaderContainsText('Summer Sale');
+  });
+  await test.step('Assert visible — Status Draft visible', async () => {
+    await basicInformationPage.expectStatusDraftVisible();
   });
   await test.step('Assert hidden — Cannot bypass approval - no Approved status yet', async () => {
-    const t = await basicInformationPage.getInnerTextCampaignSetup();
+    const t = await basicInformationPage.getInnerTextStatusDraft();
     expect(t).not.toContain('Approved');
+  });
+  await test.step('Click — Go to Campaigns and Search Campaign', async () => {
+    await dashboardPage.clickCampaigns();
+    await campaignsPage.expectLoadingImageHidden();
+    await campaignsPage.expectCampaignsVisible();
+    await campaignsPage.expectSearchVisible();
+    await campaignsPage.fillSearch('Summer Sale');
+    await campaignsPage.expectLoadingImageHidden();
+  });
+  await test.step('Click — Delete Copied Campaign', async () => {
+    await campaignsPage.clickActions();
+    await campaignsPage.clickDeleteDraftMenuOption();
+    await campaignsPage.expectLoadingImageHidden();
+    await campaignsPage.expectDeleteDraftCampaignModalHeaderVisible();
+    await campaignsPage.clickDeleteDraft();
+    await campaignsPage.expectCampaignDeletedSuccessfullyVisible();
   });
 });
 
@@ -247,6 +303,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search \'Summer Sale\'', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Summer Sale');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -263,12 +320,43 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Copy Now', async () => {
     await campaignsPage.clickCopyNow();
   });
-  await test.step('Assert visible — Basic Info visible', async () => {
-    await basicInformationPage.expectBasicInformationVisible();
+  await test.step('Assert visible — Copy Campaign Successfully', async () => {
+    await campaignsPage.expectCampaignCopiedSuccessfullyVisible();
+  });
+  await test.step('Assert hidden — Copy spinner hidden', async () => {
+    await campaignsPage.expectLoadingImageHidden();
+  });
+  await test.step('Click — Copied Campaign', async () => {
+    await campaignsPage.clickCopiedCampaignName();
+  });
+  await test.step('Wait for hidden — Wait for spinner hidden', async () => {
+    await campaignsPage.waitForHiddenLoadingImage();
+  });
+  await test.step('Assert visible — Basic Information page visible in Copy Mode', async () => {
+    await basicInformationPage.expectSaveDraftVisible();
+  });
+  await test.step('Assert visible — Copy Mode banner visible', async () => {
+    await basicInformationPage.expectCampaignNameHeaderContainsText('Summer Sale');
   });
   await test.step('Assert value — Name defaults to \'Copy of Summer Sale\'', async () => {
-    const name = await basicInformationPage.getCampaignNameValue();
+    const name = await basicInformationPage.getInnerTextCampaignNameHeader();
     expect(name).toBe('Copy of Summer Sale');
+  });
+  await test.step('Click — Go to Campaigns and Search Campaign', async () => {
+    await dashboardPage.clickCampaigns();
+    await campaignsPage.expectLoadingImageHidden();
+    await campaignsPage.expectCampaignsVisible();
+    await campaignsPage.expectSearchVisible();
+    await campaignsPage.fillSearch('Copy of Summer Sale');
+    await campaignsPage.expectLoadingImageHidden();
+  });
+  await test.step('Click — Delete Copied Campaign', async () => {
+    await campaignsPage.clickActions();
+    await campaignsPage.clickDeleteDraftMenuOption();
+    await campaignsPage.expectLoadingImageHidden();
+    await campaignsPage.expectDeleteDraftCampaignModalHeaderVisible();
+    await campaignsPage.clickDeleteDraft();
+    await campaignsPage.expectCampaignDeletedSuccessfullyVisible();
   });
 });
 
@@ -301,6 +389,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search \'Summer Sale\'', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Summer Sale');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -313,8 +402,20 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Copy Now', async () => {
     await campaignsPage.clickCopyNow();
   });
-  await test.step('Assert hidden — Spinner hidden', async () => {
+  await test.step('Assert visible — Copy Campaign Successfully', async () => {
+    await campaignsPage.expectCampaignCopiedSuccessfullyVisible();
+  });
+  await test.step('Assert hidden — Copy spinner hidden', async () => {
     await campaignsPage.expectLoadingImageHidden();
+  });
+  await test.step('Click — Copied Campaign', async () => {
+    await campaignsPage.clickCopiedCampaignName();
+  });
+  await test.step('Wait for hidden — Wait for spinner hidden', async () => {
+    await campaignsPage.waitForHiddenLoadingImage();
+  });
+  await test.step('Assert visible — Basic Information page visible in Copy Mode', async () => {
+    await basicInformationPage.expectSaveDraftVisible();
   });
   await test.step('Click — Go to Creative step', async () => {
     await basicInformationPage.clickCreative();
@@ -356,6 +457,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search \'Summer Sale\'', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Summer Sale');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -427,6 +529,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Mixed Valid Campaign"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Mixed Valid Campaign');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -442,6 +545,21 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   });
   await test.step('Click — Copy Campaign', async () => {
     await campaignsPage.clickCopyNow();
+  });
+  await test.step('Assert visible — Copy Campaign Successfully', async () => {
+    await campaignsPage.expectCampaignCopiedSuccessfullyVisible();
+  });
+  await test.step('Assert hidden — Copy spinner hidden', async () => {
+    await campaignsPage.expectLoadingImageHidden();
+  });
+  await test.step('Click — Copied Campaign', async () => {
+    await campaignsPage.clickCopiedCampaignName();
+  });
+  await test.step('Wait for hidden — Wait for spinner hidden', async () => {
+    await campaignsPage.waitForHiddenLoadingImage();
+  });
+  await test.step('Assert visible — Basic Information page visible in Copy Mode', async () => {
+    await basicInformationPage.expectSaveDraftVisible();
   });
   await test.step('Assert visible — Basic Info visible', async () => {
     await basicInformationPage.expectBasicInformationVisible();
@@ -485,6 +603,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Has Disabled Product"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Has Disabled Product');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -541,6 +660,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Has Disabled Rate"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Has Disabled Rate');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -612,6 +732,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "SLA Violation Campaign"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('SLA Violation Campaign');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -674,6 +795,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Disabled Rate + Expired Schedule"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Disabled Rate + Expired Schedule');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -742,6 +864,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Mixed Valid Campaign"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Mixed Valid Campaign');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -795,6 +918,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "SLA Violation Campaign"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('SLA Violation Campaign');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -851,6 +975,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Mixed Issues Campaign"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Mixed Issues Campaign');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -960,6 +1085,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "All Invalid Lines Campaign"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('All Invalid Lines Campaign');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -1013,6 +1139,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Has Disabled Rate"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Has Disabled Rate');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -1078,6 +1205,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Summer Sale"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Summer Sale');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -1148,6 +1276,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "SLA Violation Campaign"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('SLA Violation Campaign');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -1204,6 +1333,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Summer Sale"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Summer Sale');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -1252,6 +1382,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignsPage.expectCampaignsVisible();
   });
   await test.step('Fill — Search "Summer Sale"', async () => {
+    await campaignsPage.expectSearchVisible();
     await campaignsPage.fillSearch('Summer Sale');
   });
   await test.step('Assert hidden — Copy progress spinner hidden', async () => {
@@ -1298,7 +1429,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
   test('Launch Copy Campaign opens new campaign in Copy Mode', { tag: ["@functional","@regression","@P0","@case-339dc33c-d3d2-4986-ab9d-b8d7493daa32"] }, async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage }) => {
     await test.step('Open — Open Login URL', async () => {
-      await page.goto(env.baseURL);
+      await page.goto(env.baseUrl);
     });
 
     await test.step('Fill — Login email', async () => {
@@ -1334,6 +1465,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     });
 
     await test.step('Fill — Search \'Summer Sale\'', async () => {
+      await campaignsPage.expectSearchVisible();
       await campaignsPage.fillSearch('Summer Sale');
     });
 
@@ -1367,10 +1499,14 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
       await campaignsPage.expectLoadingImageVisible();
     });
 
+    await test.step('Assert visible — Copy Campaign Successfully', async () => {
+      await campaignsPage.expectCampaignCopiedSuccessfullyVisible();
+    });
+
     await test.step('Assert hidden — Copy progress spinner hidden', async () => {
       await campaignsPage.expectLoadingImageHidden();
     });
-
+    
     await test.step('Click — Copied Campaign', async () => {
       await campaignsPage.clickCopiedCampaignName();
     });
@@ -1389,5 +1525,23 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
     await test.step('Assert visible — Status Draft visible', async () => {
       await basicInformationPage.expectStatusDraftVisible();
+    });
+
+    await test.step('Click — Go to Campaigns and Search Campaign', async () => {
+      await dashboardPage.clickCampaigns();
+      await campaignsPage.expectLoadingImageHidden();
+      await campaignsPage.expectCampaignsVisible();
+      await campaignsPage.expectSearchVisible();
+      await campaignsPage.fillSearch('Summer Sale');
+      await campaignsPage.expectLoadingImageHidden();
+    });
+
+    await test.step('Click — Delete Copied Campaign', async () => {
+      await campaignsPage.clickActions();
+      await campaignsPage.clickDeleteDraftMenuOption();
+      await campaignsPage.expectLoadingImageHidden();
+      await campaignsPage.expectDeleteDraftCampaignModalHeaderVisible();
+      await campaignsPage.clickDeleteDraft();
+      await campaignsPage.expectCampaignDeletedSuccessfullyVisible();
     });
   });
