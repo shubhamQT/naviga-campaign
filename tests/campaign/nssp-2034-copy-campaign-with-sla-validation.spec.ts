@@ -4,10 +4,13 @@ import testData from '@testdata/test-data.json';
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Launch Copy Campaign opens new campaign in Copy Mode', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage }) => {
   await test.step('Open — Open Login URL', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Login email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Login password', async () => {
     await loginPage.fillPassword(env.password);
@@ -24,7 +27,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Assert visible — Campaigns list visible', async () => {
     await campaignsPage.expectCampaignsVisible();
   });
-  await test.step('Assert contains — Confirm source campaign \"Summer Sale\" exists', async () => {
+  await test.step('Assert contains — Confirm source campaign "Summer Sale" exists', async () => {
     const tableText = await campaignsPage.getMuiTableRoot1TableText();
     expect(tableText).toContain('Summer Sale');
   });
@@ -56,10 +59,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Copy Campaign prepopulates configuration including publications, channel, products, rates, schedule, and billing address', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage, addPublicationsPage, productSelectionPage, budgetAndSchedulePage, billingInformationPage }) => {
   await test.step('Open — Open Login URL', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -126,10 +132,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Copied campaign has lifecycle statuses reset to initial Draft and follows standard approval workflow (no bypass)', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage }) => {
   await test.step('Open — Open Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -166,10 +175,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Copied campaign name defaults to \'Copy of <Source Name>\'', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage }) => {
   await test.step('Open — Open Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -180,7 +192,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Open Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm \"Summer Sale\" exists', async () => {
+  await test.step('Assert contains — Confirm "Summer Sale" exists', async () => {
     const tableText = await campaignsPage.getMuiTableRoot1TableText();
     expect(tableText).toContain('Summer Sale');
   });
@@ -204,10 +216,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Copied campaign clears all creative assets and Upload Ad step is empty', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage, uploadCreativesPage }) => {
   await test.step('Open — Open Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -243,10 +258,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Payment information is reset; billing may prefill; new Naviga Pay transaction required', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage, billingInformationPage, campaignBookingPage, paymentPage, budgetAndSchedulePage }) => {
   await test.step('Open — Open Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -296,10 +314,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Each product in copied campaign validates independently for availability; valid lines pass without changes', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage, productSelectionPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -310,7 +331,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Go to Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Select source \"Mixed Valid Campaign\"', async () => {
+  await test.step('Assert contains — Select source "Mixed Valid Campaign"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('Mixed Valid Campaign');
   });
@@ -336,10 +357,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Disabled product line is taken to resolution and removed; remaining valid lines preserved', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage, productSelectionPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -350,7 +374,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Go to Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm source \"Has Disabled Product\"', async () => {
+  await test.step('Assert contains — Confirm source "Has Disabled Product"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('Has Disabled Product');
   });
@@ -376,10 +400,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Disabled rate requires replacement; after selecting new rate schedules are cleared and must be reselected', async ({ page, loginPage, dashboardPage, campaignsPage, productSelectionPage, budgetAndSchedulePage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -390,7 +417,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm source \"Has Disabled Rate\"', async () => {
+  await test.step('Assert contains — Confirm source "Has Disabled Rate"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('Has Disabled Rate');
   });
@@ -431,10 +458,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: SLA cutoff validation blocks until schedule corrected; opening calendar shows no preselected dates; user selects valid dates', async ({ page, loginPage, dashboardPage, campaignsPage, budgetAndSchedulePage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -445,7 +475,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm source \"SLA Violation Campaign\"', async () => {
+  await test.step('Assert contains — Confirm source "SLA Violation Campaign"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('SLA Violation Campaign');
   });
@@ -477,10 +507,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Multiple validation issues enforce order: replace disabled rate before correcting expired schedule', async ({ page, loginPage, dashboardPage, campaignsPage, productSelectionPage, budgetAndSchedulePage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -491,7 +524,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm source \"Disabled Rate + Expired Schedule\"', async () => {
+  await test.step('Assert contains — Confirm source "Disabled Rate + Expired Schedule"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('Disabled Rate + Expired Schedule');
   });
@@ -529,10 +562,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Valid lines remain unchanged while invalid lines are corrected or removed', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage, productSelectionPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -543,7 +579,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm source \"Mixed Valid Campaign\"', async () => {
+  await test.step('Assert contains — Confirm source "Mixed Valid Campaign"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('Mixed Valid Campaign');
   });
@@ -566,10 +602,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Booking is blocked when invalid lines remain and displays validation message; no provisional booking record created', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage, campaignBookingPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -606,10 +645,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: After resolving all invalid lines booking is enabled; new payment completed; campaign follows standard lifecycle', async ({ page, loginPage, dashboardPage, campaignsPage, productSelectionPage, budgetAndSchedulePage, basicInformationPage, campaignBookingPage, paymentPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -620,7 +662,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm source \"Mixed Issues Campaign\"', async () => {
+  await test.step('Assert contains — Confirm source "Mixed Issues Campaign"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('Mixed Issues Campaign');
   });
@@ -680,29 +722,32 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     expect(txt).toContain('Submitted');
   });
   await test.step('Assert contains — Lifecycle includes Creative Review', async () => {
-    const txt = await campaignsPage.getMuiTableRoot1TableText();
-    expect(txt).toContain('Creative Review');
+    const txt2 = await campaignsPage.getMuiTableRoot1TableText();
+    expect(txt2).toContain('Creative Review');
   });
   await test.step('Assert contains — Lifecycle includes Approval', async () => {
-    const txt = await campaignsPage.getMuiTableRoot1TableText();
-    expect(txt).toContain('Approval');
+    const txt3 = await campaignsPage.getMuiTableRoot1TableText();
+    expect(txt3).toContain('Approval');
   });
   await test.step('Assert contains — Lifecycle includes Scheduling', async () => {
-    const txt = await campaignsPage.getMuiTableRoot1TableText();
-    expect(txt).toContain('Scheduling');
+    const txt4 = await campaignsPage.getMuiTableRoot1TableText();
+    expect(txt4).toContain('Scheduling');
   });
   await test.step('Assert contains — Lifecycle includes Delivery', async () => {
-    const txt = await campaignsPage.getMuiTableRoot1TableText();
-    expect(txt).toContain('Delivery');
+    const txt5 = await campaignsPage.getMuiTableRoot1TableText();
+    expect(txt5).toContain('Delivery');
   });
 });
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Removing all campaign lines during resolution cancels copy and returns to Campaign Listing', async ({ page, loginPage, dashboardPage, campaignsPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -713,7 +758,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm \"All Invalid Lines Campaign\"', async () => {
+  await test.step('Assert contains — Confirm "All Invalid Lines Campaign"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('All Invalid Lines Campaign');
   });
@@ -736,10 +781,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Replacement product with no active rates shows error; user selects different product with active rates to continue', async ({ page, loginPage, dashboardPage, campaignsPage, productSelectionPage, basicInformationPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -750,7 +798,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm \"Has Disabled Rate\"', async () => {
+  await test.step('Assert contains — Confirm "Has Disabled Rate"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('Has Disabled Rate');
   });
@@ -785,10 +833,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Audit logging captures changes during resolution (status, product, rate, schedule) with timestamp', async ({ page, loginPage, dashboardPage, campaignsPage, productSelectionPage, budgetAndSchedulePage, basicInformationPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -837,10 +888,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: No provisional booking records created when cutoff validation fails until resolved', async ({ page, loginPage, dashboardPage, campaignsPage, budgetAndSchedulePage, basicInformationPage, campaignBookingPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -851,7 +905,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Assert contains — Confirm \"SLA Violation Campaign\"', async () => {
+  await test.step('Assert contains — Confirm "SLA Violation Campaign"', async () => {
     const txt = await campaignsPage.getMuiTableRoot1TableText();
     expect(txt).toContain('SLA Violation Campaign');
   });
@@ -877,10 +931,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Validate rates remain active for all lines after copy (independent rate validation)', async ({ page, loginPage, dashboardPage, campaignsPage, productSelectionPage, basicInformationPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -891,7 +948,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Click — Open actions for \"Rate Check Campaign\"', async () => {
+  await test.step('Click — Open actions for "Rate Check Campaign"', async () => {
     await campaignsPage.clickMuiTableRoot1TableButton();
   });
   await test.step('Click — Copy Campaign', async () => {
@@ -909,10 +966,13 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Booking enabled only after revalidation passes; user sees clear resolution messaging when blocked and success messaging when enabled', async ({ page, loginPage, dashboardPage, campaignsPage, productSelectionPage, budgetAndSchedulePage, basicInformationPage, campaignBookingPage }) => {
   await test.step('Open — Login', async () => {
-    await page.goto('https://app.propel.example/login');
+    await page.goto(`${env.baseUrl}/login`);
   });
   await test.step('Fill — Email', async () => {
     await loginPage.fillEmail(env.username);
+  });
+  await test.step('Click — Next after email', async () => {
+    await loginPage.clickNext();
   });
   await test.step('Fill — Password', async () => {
     await loginPage.fillPassword(env.password);
@@ -923,7 +983,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
   await test.step('Click — Campaigns', async () => {
     await dashboardPage.clickCampaigns();
   });
-  await test.step('Click — Open actions for \"Has Disabled Rate\"', async () => {
+  await test.step('Click — Open actions for "Has Disabled Rate"', async () => {
     await campaignsPage.clickMuiTableRoot1TableButton();
   });
   await test.step('Click — Copy Campaign', async () => {
