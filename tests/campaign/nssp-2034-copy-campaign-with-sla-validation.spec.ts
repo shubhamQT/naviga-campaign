@@ -1061,6 +1061,14 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
       await campaignsPage.expectCampaignsVisible();
     });
 
+    await test.step('Fill — Search \'Summer Sale\'', async () => {
+      await campaignsPage.fillSearch('Summer Sale');
+    });
+
+    await test.step('Assert hidden — Copy progress spinner hidden', async () => {
+      await campaignsPage.expectLoadingImageHidden();
+    });
+
     await test.step('Assert contains — Confirm source campaign \'Summer Sale\' exists', async () => {
       const tableText = await campaignsPage.getMuiTableRoot1TableText(0, 'Campaign');
       expect(tableText).toContain('Summer Sale');
