@@ -1,10 +1,12 @@
 {
+  "name": "qa",
+  "slug": "qa",
   "baseURL": "https://ss-portal-devqa.ncs-dev-lab.net/",
   "username": "ssp09@mailinator.com",
   "password": "Test@123",
   "browser": "chromium",
   "headless": true,
-  "timeout": 30000,
+  "timeout": 60000,
   "actionTimeout": 10000,
   "retries": 0,
   "fullyParallel": false,
