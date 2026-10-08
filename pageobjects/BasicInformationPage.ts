@@ -47,7 +47,7 @@ export class BasicInformationPage {
     campaignName: { strategy: 'css' as const, value: '#campaignName[name="description"]', role: 'textbox', actionKind: 'textbox' as const },
     saveDraft: { strategy: 'role' as const, value: 'Save Draft', role: 'button', actionKind: 'button' as const },
     campaignNameHeader: { strategy: 'css' as const, value: '.newcampaign-review-summary-desktop [aria-label*="Copy of "]', actionKind: 'generic' as const },
-    statusDraft: { strategy: 'text' as const, value: 'Status Draft', actionKind: 'generic' as const },
+    statusDraft: { strategy: 'text' as const, value: 'Draft', actionKind: 'generic' as const },
     campaignSetup: { strategy: 'role' as const, value: 'Campaign Setup', role: 'heading', level: 6, actionKind: 'text' as const },
     placementAndFormat: { strategy: 'role' as const, value: 'Placement and format', role: 'heading', level: 6, actionKind: 'text' as const },
     schedule: { strategy: 'role' as const, value: 'Schedule', role: 'heading', level: 6, actionKind: 'text' as const },
