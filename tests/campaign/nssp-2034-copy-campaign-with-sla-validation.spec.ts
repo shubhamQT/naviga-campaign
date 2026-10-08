@@ -4,7 +4,7 @@ import testData from '@testdata/test-data.json';
 
 test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: Launch Copy Campaign opens new campaign in Copy Mode', async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage }) => {
   await test.step('Open — Open Login URL', async () => {
-      await page.goto(env.baseUrl);
+      await page.goto(`${env.baseUrl}/login`);
     });
     await test.step('Fill — Login email', async () => {
       await loginPage.fillEmail(env.username);
@@ -1429,7 +1429,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
 
   test('Launch Copy Campaign opens new campaign in Copy Mode', { tag: ["@functional","@regression","@P0","@case-339dc33c-d3d2-4986-ab9d-b8d7493daa32"] }, async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage }) => {
     await test.step('Open — Open Login URL', async () => {
-      await page.goto(env.baseUrl);
+      await page.goto(`${env.baseUrl}/login`);
     });
 
     await test.step('Fill — Login email', async () => {
