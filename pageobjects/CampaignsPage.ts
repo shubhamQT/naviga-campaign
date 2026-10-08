@@ -63,8 +63,9 @@ export class CampaignsPage {
     copyNow: { strategy: 'role' as const, value: 'Copy Now', role: 'button', actionKind: 'button' as const },
     loadingImage: { strategy: 'altText' as const, value: 'Loading image', actionKind: 'generic' as const },
     campaignCopiedSuccessfully: { strategy: 'text' as const, value: 'Campaign copied successfully.', actionKind: 'generic' as const },
-    copyCampaignModalText: { strategy: 'css' as const, value: '[role="dialog"] p', actionKind: 'generic' as const },
+    campaignModalText: { strategy: 'css' as const, value: '[role="dialog"] p', actionKind: 'generic' as const },
     deleteDraftCampaignModalHeader: { strategy: 'role' as const, value: 'Delete Draft Campaign', role: 'heading', level: 6, actionKind: 'text' as const },
+    deleteDraft: { strategy: 'role' as const, value: 'Delete Draft', role: 'button', actionKind: 'button' as const },
     campaignDeletedSuccessfully: { strategy: 'text' as const, value: 'Campaign draft has been deleted successfully.', actionKind: 'generic' as const },
   } as const;
 
@@ -296,12 +297,16 @@ export class CampaignsPage {
     await waitForVisible(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs, soft);
   }
 
-  async expectCopyCampaignModalTextVisible(timeoutMs = 30_000, soft = true): Promise<void> {
-    await expectVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), timeoutMs, soft);
+  async expectCampaignModalTextVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, CampaignsPage.L.campaignModalText), timeoutMs, soft);
   }
 
   async getInnerTextCopyCampaignModalText(): Promise<string> {
-    return getTextWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalText));
+    return getTextWhenVisible(webLocator(this.page, CampaignsPage.L.campaignModalText));
+  }
+
+  async expectCampaignModalText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, CampaignsPage.L.campaignModalText), substring, timeoutMs);
   }
 
   async waitForVisibleDeleteDraftCampaignModalHeader(): Promise<string> {
@@ -310,6 +315,14 @@ export class CampaignsPage {
 
   async expectDeleteDraftCampaignModalHeaderVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), timeoutMs, soft);
+  }
+
+  async clickDeleteDraft(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraft));
+  }
+
+  async expectDeleteDraft(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, CampaignsPage.L.deleteDraft), timeoutMs, soft);
   }
 
   async expectCampaignDeletedSuccessfullyVisible(timeoutMs = 30_000, soft = true): Promise<void> {
