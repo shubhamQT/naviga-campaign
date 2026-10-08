@@ -54,9 +54,11 @@ export class CampaignsPage {
     goToPage2: { strategy: 'role' as const, value: 'Go to page 2', role: 'button', actionKind: 'button' as const },
     goToPage3: { strategy: 'role' as const, value: 'Go to page 3', role: 'button', actionKind: 'button' as const },
     goToNextPage: { strategy: 'role' as const, value: 'Go to next page', role: 'button', actionKind: 'button' as const },
-    completeBooking: { strategy: 'role' as const, value: 'Complete Booking', role: 'menuitem', actionKind: 'generic' as const },
-    deleteDraft: { strategy: 'role' as const, value: 'Delete Draft', role: 'menuitem', actionKind: 'generic' as const },
-    copyCampaignModalHeader: { strategy: 'role' as const, value: 'Copy Campaign', role: 'menuitem', actionKind: 'generic' as const },
+    actions: { strategy: 'label' as const, value: 'Actions', role: 'button', actionKind: 'button' as const },
+    completeBookingMenuOption: { strategy: 'role' as const, value: 'Complete Booking', role: 'menuitem', actionKind: 'generic' as const },
+    deleteDraftMenuOption: { strategy: 'role' as const, value: 'Delete Draft', role: 'menuitem', actionKind: 'generic' as const },
+    copyCampaignMenuOption: { strategy: 'role' as const, value: 'Copy Campaign', role: 'menuitem', actionKind: 'generic' as const },
+    copyCampaignModalHeader: { strategy: 'role' as const, value: 'Copy Campaign?', role: 'heading', level: 6, actionKind: 'text' as const },
     cancel: { strategy: 'role' as const, value: 'Cancel', role: 'button', actionKind: 'button' as const },
     copyNow: { strategy: 'role' as const, value: 'Copy Now', role: 'button', actionKind: 'button' as const },
     loadingImage: { strategy: 'altText' as const, value: 'Loading image', actionKind: 'generic' as const },
@@ -210,24 +212,32 @@ export class CampaignsPage {
     await expectPageTitle(this.page, 'McClatchy Ad Manager', timeoutMs);
   }
 
-  async clickCompleteBooking(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.completeBooking));
+  async clickActions(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.actions));
   }
 
-  async expectCompleteBookingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
-    await expectVisible(webLocator(this.page, CampaignsPage.L.completeBooking), timeoutMs, soft);
+  async expectActionsVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, CampaignsPage.L.actions), timeoutMs, soft);
   }
 
-  async clickDeleteDraft(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraft));
+  async clickCompleteBookingMenuOption(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.completeBookingMenuOption));
   }
 
-  async expectDeleteDraftVisible(timeoutMs = 30_000, soft = true): Promise<void> {
-    await expectVisible(webLocator(this.page, CampaignsPage.L.deleteDraft), timeoutMs, soft);
+  async expectCompleteBookingMenuOptionVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, CampaignsPage.L.completeBookingMenuOption), timeoutMs, soft);
   }
 
-  async clickCopyCampaignModalHeader(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader));
+  async clickDeleteDraftMenuOption(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraftMenuOption));
+  }
+
+  async expectDeleteDraftMenuOptionVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, CampaignsPage.L.deleteDraftMenuOption), timeoutMs, soft);
+  }
+
+  async waitForVisibleCopyCampaignModalHeader(): Promise<void> {
+    await waitForVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader));
   }
 
   async expectCopyCampaignModalHeaderVisible(timeoutMs = 30_000, soft = true): Promise<void> {
@@ -258,24 +268,36 @@ export class CampaignsPage {
     await expectVisible(webLocator(this.page, CampaignsPage.L.copyNow), timeoutMs, soft);
   }
 
-  async clickLoadingImage(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.loadingImage));
-  }
-
   async expectLoadingImageVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs, soft);
+  }
+
+  async expectLoadingImageHidden(timeoutMs = 30_000): Promise<void> {
+    await expectHidden(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
+  }
+
+  async waitForHiddenLoadingImage(timeoutMs = 30_000): Promise<void> {
+    await waitForHidden(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
   }
 
   async expectCampaignCopiedSuccessfullyVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs, soft);
   }
 
+  async waitForVisibleCampaignCopiedSuccessfully(timeoutMs = 30_000, soft = true): Promise<void> {
+    await waitForVisible(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs, soft);
+  }
+
   async expectCopyCampaignModalTextVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), timeoutMs, soft);
   }
 
-  async getInnerTextDeleteDraftCampaignModalHeader(): Promise<string> {
-    return getTextWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader));
+  async getInnerTextCopyCampaignModalText(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalText));
+  }
+
+  async waitForVisibleDeleteDraftCampaignModalHeader(): Promise<string> {
+    return waitForVisible(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader));
   }
 
   async expectDeleteDraftCampaignModalHeaderVisible(timeoutMs = 30_000, soft = true): Promise<void> {
@@ -284,6 +306,10 @@ export class CampaignsPage {
 
   async expectCampaignDeletedSuccessfullyVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), timeoutMs, soft);
+  }
+
+  async waitForVisibleCampaignDeletedSuccessfully(timeoutMs = 30_000, soft = true): Promise<void> {
+    await waitForVisible(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), timeoutMs, soft);
   }
 
   // ── #root table ──────────────────────────────────────────────
@@ -924,162 +950,6 @@ export class CampaignsPage {
     await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.goToNextPage));
   }
 
-  async doubleClickCompleteBooking(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CampaignsPage.L.completeBooking));
-  }
-
-  async longPressCompleteBooking(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.completeBooking));
-  }
-
-  async expectCompleteBookingHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CampaignsPage.L.completeBooking), timeoutMs);
-  }
-
-  async expectCompleteBookingText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CampaignsPage.L.completeBooking), expected, timeoutMs);
-  }
-
-  async expectCompleteBookingContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CampaignsPage.L.completeBooking), substring, timeoutMs);
-  }
-
-  async expectCompleteBookingValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CampaignsPage.L.completeBooking), value, timeoutMs);
-  }
-
-  async expectCompleteBookingEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CampaignsPage.L.completeBooking), timeoutMs);
-  }
-
-  async expectCompleteBookingDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CampaignsPage.L.completeBooking), timeoutMs);
-  }
-
-  async expectCompleteBookingChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CampaignsPage.L.completeBooking), timeoutMs);
-  }
-
-  async expectCompleteBookingUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CampaignsPage.L.completeBooking), timeoutMs);
-  }
-
-  async expectCompleteBookingFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CampaignsPage.L.completeBooking), timeoutMs);
-  }
-
-  async expectCompleteBookingCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CampaignsPage.L.completeBooking), count, timeoutMs);
-  }
-
-  async scrollCompleteBookingIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.completeBooking));
-  }
-
-  async doubleClickDeleteDraft(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraft));
-  }
-
-  async longPressDeleteDraft(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraft));
-  }
-
-  async expectDeleteDraftHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CampaignsPage.L.deleteDraft), timeoutMs);
-  }
-
-  async expectDeleteDraftText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CampaignsPage.L.deleteDraft), expected, timeoutMs);
-  }
-
-  async expectDeleteDraftContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CampaignsPage.L.deleteDraft), substring, timeoutMs);
-  }
-
-  async expectDeleteDraftValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CampaignsPage.L.deleteDraft), value, timeoutMs);
-  }
-
-  async expectDeleteDraftEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CampaignsPage.L.deleteDraft), timeoutMs);
-  }
-
-  async expectDeleteDraftDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CampaignsPage.L.deleteDraft), timeoutMs);
-  }
-
-  async expectDeleteDraftChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CampaignsPage.L.deleteDraft), timeoutMs);
-  }
-
-  async expectDeleteDraftUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CampaignsPage.L.deleteDraft), timeoutMs);
-  }
-
-  async expectDeleteDraftFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CampaignsPage.L.deleteDraft), timeoutMs);
-  }
-
-  async expectDeleteDraftCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CampaignsPage.L.deleteDraft), count, timeoutMs);
-  }
-
-  async scrollDeleteDraftIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraft));
-  }
-
-  async doubleClickCopyCampaignModalHeader(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader));
-  }
-
-  async longPressCopyCampaignModalHeader(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader));
-  }
-
-  async expectCopyCampaignModalHeaderHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), expected, timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), substring, timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), value, timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), timeoutMs);
-  }
-
-  async expectCopyCampaignModalHeaderCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader), count, timeoutMs);
-  }
-
-  async scrollCopyCampaignModalHeaderIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader));
-  }
-
   async longPressCancel(): Promise<void> {
     await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.cancel));
   }
@@ -1174,282 +1044,6 @@ export class CampaignsPage {
 
   async scrollCopyNowIntoView(): Promise<void> {
     await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.copyNow));
-  }
-
-  async doubleClickLoadingImage(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CampaignsPage.L.loadingImage));
-  }
-
-  async longPressLoadingImage(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.loadingImage));
-  }
-
-  async expectLoadingImageHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
-  }
-
-  async expectLoadingImageText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CampaignsPage.L.loadingImage), expected, timeoutMs);
-  }
-
-  async expectLoadingImageContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CampaignsPage.L.loadingImage), substring, timeoutMs);
-  }
-
-  async expectLoadingImageValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CampaignsPage.L.loadingImage), value, timeoutMs);
-  }
-
-  async expectLoadingImageEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
-  }
-
-  async expectLoadingImageDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
-  }
-
-  async expectLoadingImageChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
-  }
-
-  async expectLoadingImageUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
-  }
-
-  async expectLoadingImageFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
-  }
-
-  async expectLoadingImageCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CampaignsPage.L.loadingImage), count, timeoutMs);
-  }
-
-  async scrollLoadingImageIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.loadingImage));
-  }
-
-  async clickCampaignCopiedSuccessfully(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully));
-  }
-
-  async doubleClickCampaignCopiedSuccessfully(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully));
-  }
-
-  async longPressCampaignCopiedSuccessfully(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully));
-  }
-
-  async expectCampaignCopiedSuccessfullyHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), expected, timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), substring, timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), value, timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignCopiedSuccessfullyCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully), count, timeoutMs);
-  }
-
-  async scrollCampaignCopiedSuccessfullyIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.campaignCopiedSuccessfully));
-  }
-
-  async clickCopyCampaignModalText(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalText));
-  }
-
-  async doubleClickCopyCampaignModalText(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalText));
-  }
-
-  async longPressCopyCampaignModalText(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalText));
-  }
-
-  async expectCopyCampaignModalTextHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), expected, timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), substring, timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), value, timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), timeoutMs);
-  }
-
-  async expectCopyCampaignModalTextCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CampaignsPage.L.copyCampaignModalText), count, timeoutMs);
-  }
-
-  async scrollCopyCampaignModalTextIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalText));
-  }
-
-  async clickDeleteDraftCampaignModalHeader(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader));
-  }
-
-  async doubleClickDeleteDraftCampaignModalHeader(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader));
-  }
-
-  async longPressDeleteDraftCampaignModalHeader(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader));
-  }
-
-  async expectDeleteDraftCampaignModalHeaderHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), expected, timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), substring, timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), value, timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), timeoutMs);
-  }
-
-  async expectDeleteDraftCampaignModalHeaderCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader), count, timeoutMs);
-  }
-
-  async scrollDeleteDraftCampaignModalHeaderIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.deleteDraftCampaignModalHeader));
-  }
-
-  async clickCampaignDeletedSuccessfully(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully));
-  }
-
-  async doubleClickCampaignDeletedSuccessfully(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully));
-  }
-
-  async longPressCampaignDeletedSuccessfully(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully));
-  }
-
-  async expectCampaignDeletedSuccessfullyHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), expected, timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), substring, timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), value, timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), timeoutMs);
-  }
-
-  async expectCampaignDeletedSuccessfullyCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully), count, timeoutMs);
-  }
-
-  async scrollCampaignDeletedSuccessfullyIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.campaignDeletedSuccessfully));
   }
 
 }
