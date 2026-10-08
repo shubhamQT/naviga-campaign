@@ -67,6 +67,7 @@ export class CampaignsPage {
     deleteDraftCampaignModalHeader: { strategy: 'role' as const, value: 'Delete Draft Campaign', role: 'heading', level: 6, actionKind: 'text' as const },
     deleteDraft: { strategy: 'role' as const, value: 'Delete Draft', role: 'button', actionKind: 'button' as const },
     campaignDeletedSuccessfully: { strategy: 'text' as const, value: 'Campaign draft has been deleted successfully.', actionKind: 'generic' as const },
+    copiedCampaignName: { strategy: 'css' as const, value: 'span[aria-label*="Copy of"]', actionKind: 'generic' as const },
   } as const;
 
   readonly muiTableRoot1: WebTable; // columns: ["Campaign", "Type", "Status", "Duration", "Campaign ID", "Budget", "Actions"]
@@ -1065,6 +1066,10 @@ export class CampaignsPage {
 
   async scrollCopyNowIntoView(): Promise<void> {
     await scrollIntoViewWhenVisible(webLocator(this.page, CampaignsPage.L.copyNow));
+  }
+
+  async clickCopiedCampaignName(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.copiedCampaignName));
   }
 
 }

@@ -60,7 +60,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
       await campaignsPage.expectLoadingImageHidden();
     });
     await test.step('Click — Copied Campaign', async () => {
-      await campaignsPage.clickMuiTableRoot1TableLink(0, 'Campaign');
+      await campaignsPage.clickCopiedCampaignName();
     });
     await test.step('Wait for hidden — Wait for spinner hidden', async () => {
       await campaignsPage.waitForHiddenLoadingImage();
@@ -1372,7 +1372,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     });
 
     await test.step('Click — Copied Campaign', async () => {
-      await campaignsPage.clickMuiTableRoot1TableLink(0, 'Campaign');
+      await campaignsPage.clickCopiedCampaignName();
     });
 
     await test.step('Wait for hidden — Wait for spinner hidden', async () => {
