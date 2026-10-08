@@ -1033,6 +1033,10 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
       await loginPage.fillEmail(env.username);
     });
 
+    await test.step('Click — Next after email', async () => {
+      await loginPage.clickNext();
+    });
+
     await test.step('Fill — Login password', async () => {
       await loginPage.fillPassword(env.password);
     });
@@ -1049,12 +1053,16 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
       await dashboardPage.clickCampaigns();
     });
 
+    await test.step('Assert hidden — Copy progress spinner hidden', async () => {
+      await campaignsPage.expectLoadingImageHidden();
+    });
+
     await test.step('Assert visible — Campaigns list visible', async () => {
       await campaignsPage.expectCampaignsVisible();
     });
 
     await test.step('Assert contains — Confirm source campaign \'Summer Sale\' exists', async () => {
-      const tableText = await campaignsPage.getMuiTableRoot1TableText();
+      const tableText = await campaignsPage.getMuiTableRoot1TableText(1);
       expect(tableText).toContain('Summer Sale');
     });
 
