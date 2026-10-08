@@ -236,6 +236,14 @@ export class CampaignsPage {
     await expectVisible(webLocator(this.page, CampaignsPage.L.deleteDraftMenuOption), timeoutMs, soft);
   }
 
+  async clickCopyCampaignMenuOption(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CampaignsPage.L.copyCampaignMenuOption));
+  }
+
+  async expectCopyCampaignMenuOptionVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, CampaignsPage.L.copyCampaignMenuOption), timeoutMs, soft);
+  }
+
   async waitForVisibleCopyCampaignModalHeader(): Promise<void> {
     await waitForVisible(webLocator(this.page, CampaignsPage.L.copyCampaignModalHeader));
   }
