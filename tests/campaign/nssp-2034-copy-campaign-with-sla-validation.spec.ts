@@ -1023,3 +1023,70 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     await campaignBookingPage.expectConfirmPaymentEnabled();
   });
 });
+
+  test('Launch Copy Campaign opens new campaign in Copy Mode', { tag: ["@functional","@regression","@P0","@case-339dc33c-d3d2-4986-ab9d-b8d7493daa32"] }, async ({ page, loginPage, dashboardPage, campaignsPage, basicInformationPage }) => {
+    await test.step('Open — Open Login URL', async () => {
+      await page.goto(env.baseURL);
+    });
+
+    await test.step('Fill — Login email', async () => {
+      await loginPage.fillEmail(env.username);
+    });
+
+    await test.step('Fill — Login password', async () => {
+      await loginPage.fillPassword(env.password);
+    });
+
+    await test.step('Click — Click Log In', async () => {
+      await loginPage.clickLogIn();
+    });
+
+    await test.step('Assert visible — Dashboard visible', async () => {
+      await dashboardPage.expectDashboardVisible();
+    });
+
+    await test.step('Click — Go to Campaigns', async () => {
+      await dashboardPage.clickCampaigns();
+    });
+
+    await test.step('Assert visible — Campaigns list visible', async () => {
+      await campaignsPage.expectCampaignsVisible();
+    });
+
+    await test.step('Assert contains — Confirm source campaign \'Summer Sale\' exists', async () => {
+      const tableText = await campaignsPage.getMuiTableRoot1TableText();
+      expect(tableText).toContain('Summer Sale');
+    });
+
+    await test.step('Click — Open actions for \'Summer Sale\'', async () => {
+      await campaignsPage.clickMuiTableRoot1TableButton();
+    });
+
+    await test.step('Click — Select Copy Campaign from menu', async () => {
+      await campaignsPage.clickMuiTableRoot1TableMenuOption();
+    });
+
+    await test.step('Assert visible — Copy Campaign modal header visible', async () => {
+      await campaignsPage.expectCopyCampaignModalHeaderVisible();
+    });
+
+    await test.step('Click — Click Copy Now', async () => {
+      await campaignsPage.clickCopyNow();
+    });
+
+    await test.step('Assert visible — Copy progress spinner shows', async () => {
+      await campaignsPage.expectLoadingImageVisible();
+    });
+
+    await test.step('Assert hidden — Copy progress spinner hidden', async () => {
+      await campaignsPage.expectLoadingImageHidden();
+    });
+
+    await test.step('Assert visible — Basic Information page visible in Copy Mode', async () => {
+      await basicInformationPage.expectBasicInformationVisible();
+    });
+
+    await test.step('Assert visible — Copy Mode banner visible', async () => {
+      await basicInformationPage.expectBasicInformationContainsText('Copy Mode');
+    });
+  });
