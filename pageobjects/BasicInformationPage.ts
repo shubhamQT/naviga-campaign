@@ -46,7 +46,8 @@ export class BasicInformationPage {
     basicInformationLetSGet: { strategy: 'role' as const, value: 'Basic information Let’s get started with your', role: 'button', actionKind: 'button' as const },
     campaignName: { strategy: 'css' as const, value: '#campaignName[name="description"]', role: 'textbox', actionKind: 'textbox' as const },
     saveDraft: { strategy: 'role' as const, value: 'Save Draft', role: 'button', actionKind: 'button' as const },
-    campaignName2: { strategy: 'role' as const, value: 'Campaign Name', role: 'heading', level: 6, actionKind: 'text' as const },
+    campaignNameHeader: { strategy: 'css' as const, value: '.newcampaign-review-summary-desktop [aria-label*="Copy of "]', actionKind: 'generic' as const },
+    statusDraft: { strategy: 'text' as const, value: 'Status Draft', actionKind: 'generic' as const },
     campaignSetup: { strategy: 'role' as const, value: 'Campaign Setup', role: 'heading', level: 6, actionKind: 'text' as const },
     placementAndFormat: { strategy: 'role' as const, value: 'Placement and format', role: 'heading', level: 6, actionKind: 'text' as const },
     schedule: { strategy: 'role' as const, value: 'Schedule', role: 'heading', level: 6, actionKind: 'text' as const },
@@ -113,22 +114,26 @@ export class BasicInformationPage {
     await clickWhenVisible(webLocator(this.page, BasicInformationPage.L.saveDraft));
   }
 
-  async doubleClickSaveDraft(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, BasicInformationPage.L.saveDraft));
-  }
-
   async expectSaveDraftVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, BasicInformationPage.L.saveDraft), timeoutMs, soft);
   }
 
-  async getInnerTextCampaignName2(): Promise<string> {
-    return getTextWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignName2));
+  async getInnerTextCampaignNameHeader(): Promise<string> {
+    return getTextWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignNameHeader));
   }
 
-  async expectCampaignName2Visible(timeoutMs = 30_000, soft = true): Promise<void> {
-    await expectVisible(webLocator(this.page, BasicInformationPage.L.campaignName2), timeoutMs, soft);
+  async expectCampaignNameHeaderVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, BasicInformationPage.L.campaignNameHeader), timeoutMs, soft);
   }
 
+  async expectCampaignNameHeaderContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
+    await expectContainsText(webLocator(this.page, BasicInformationPage.L.campaignNameHeader), substring, timeoutMs);
+  }
+
+  async expectStatusDraftVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, BasicInformationPage.L.statusDraft), timeoutMs, soft);
+  }
+  
   async getInnerTextCampaignSetup(): Promise<string> {
     return getTextWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignSetup));
   }
@@ -446,110 +451,6 @@ export class BasicInformationPage {
 
   async scrollCampaignNameIntoView(): Promise<void> {
     await scrollIntoViewWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignName));
-  }
-
-  async longPressSaveDraft(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, BasicInformationPage.L.saveDraft));
-  }
-
-  async expectSaveDraftHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, BasicInformationPage.L.saveDraft), timeoutMs);
-  }
-
-  async expectSaveDraftText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, BasicInformationPage.L.saveDraft), expected, timeoutMs);
-  }
-
-  async expectSaveDraftContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, BasicInformationPage.L.saveDraft), substring, timeoutMs);
-  }
-
-  async expectSaveDraftValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, BasicInformationPage.L.saveDraft), value, timeoutMs);
-  }
-
-  async expectSaveDraftEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, BasicInformationPage.L.saveDraft), timeoutMs);
-  }
-
-  async expectSaveDraftDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, BasicInformationPage.L.saveDraft), timeoutMs);
-  }
-
-  async expectSaveDraftChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, BasicInformationPage.L.saveDraft), timeoutMs);
-  }
-
-  async expectSaveDraftUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, BasicInformationPage.L.saveDraft), timeoutMs);
-  }
-
-  async expectSaveDraftFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, BasicInformationPage.L.saveDraft), timeoutMs);
-  }
-
-  async expectSaveDraftCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, BasicInformationPage.L.saveDraft), count, timeoutMs);
-  }
-
-  async scrollSaveDraftIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, BasicInformationPage.L.saveDraft));
-  }
-
-  async clickCampaignName2(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignName2));
-  }
-
-  async doubleClickCampaignName2(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignName2));
-  }
-
-  async longPressCampaignName2(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignName2));
-  }
-
-  async expectCampaignName2Hidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, BasicInformationPage.L.campaignName2), timeoutMs);
-  }
-
-  async expectCampaignName2Text(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, BasicInformationPage.L.campaignName2), expected, timeoutMs);
-  }
-
-  async expectCampaignName2ContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, BasicInformationPage.L.campaignName2), substring, timeoutMs);
-  }
-
-  async expectCampaignName2Value(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, BasicInformationPage.L.campaignName2), value, timeoutMs);
-  }
-
-  async expectCampaignName2Enabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, BasicInformationPage.L.campaignName2), timeoutMs);
-  }
-
-  async expectCampaignName2Disabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, BasicInformationPage.L.campaignName2), timeoutMs);
-  }
-
-  async expectCampaignName2Checked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, BasicInformationPage.L.campaignName2), timeoutMs);
-  }
-
-  async expectCampaignName2Unchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, BasicInformationPage.L.campaignName2), timeoutMs);
-  }
-
-  async expectCampaignName2Focused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, BasicInformationPage.L.campaignName2), timeoutMs);
-  }
-
-  async expectCampaignName2Count(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, BasicInformationPage.L.campaignName2), count, timeoutMs);
-  }
-
-  async scrollCampaignName2IntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, BasicInformationPage.L.campaignName2));
   }
 
   async clickCampaignSetup(): Promise<void> {
