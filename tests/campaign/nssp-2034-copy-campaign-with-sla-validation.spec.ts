@@ -69,7 +69,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
       await basicInformationPage.expectSaveDraftVisible();
     });
     await test.step('Assert visible — Copy Mode banner visible', async () => {
-      await basicInformationPage.expectContainsText('Summer Sale');
+      await basicInformationPage.expectCampaignNameHeaderContainsText('Summer Sale');
     });
     await test.step('Assert visible — Status Draft visible', async () => {
       await basicInformationPage.expectStatusDraftVisible();
@@ -1384,7 +1384,7 @@ test('[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths: 
     });
 
     await test.step('Assert visible — Copy Mode banner visible', async () => {
-      await basicInformationPage.expectContainsText('Summer Sale');
+      await basicInformationPage.expectCampaignNameHeaderContainsText('Summer Sale');
     });
 
     await test.step('Assert visible — Status Draft visible', async () => {
