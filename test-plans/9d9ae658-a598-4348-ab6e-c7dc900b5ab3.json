@@ -1,0 +1,2323 @@
+{
+  "id": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "model": "gpt-5",
+  "createdAt": "2026-10-08T04:14:45.475Z",
+  "plan": {
+    "version": 1,
+    "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+    "cases": [
+      {
+        "id": "339dc33c-d3d2-4986-ab9d-b8d7493daa32",
+        "title": "Launch Copy Campaign opens new campaign in Copy Mode",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Login URL",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Login email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Login password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Click Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "assertVisible",
+            "targetDescription": "Dashboard visible",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "expectDashboardVisible"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Go to Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s7",
+            "action": "assertVisible",
+            "targetDescription": "Campaigns list visible",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectCampaignsVisible"
+          },
+          {
+            "id": "s8",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm source campaign 'Summer Sale' exists",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Summer Sale"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Open actions for 'Summer Sale'",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Select Copy Campaign from menu",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s11",
+            "action": "assertVisible",
+            "targetDescription": "Copy Campaign modal header visible",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectCopyCampaignModalHeaderVisible"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Click Copy Now",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickCopyNow"
+          },
+          {
+            "id": "s13",
+            "action": "assertVisible",
+            "targetDescription": "Copy progress spinner shows",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectLoadingImageVisible"
+          },
+          {
+            "id": "s14",
+            "action": "assertHidden",
+            "targetDescription": "Copy progress spinner hidden",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectLoadingImageHidden"
+          },
+          {
+            "id": "s15",
+            "action": "assertVisible",
+            "targetDescription": "Basic Information page visible in Copy Mode",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "expectBasicInformationVisible"
+          },
+          {
+            "id": "s16",
+            "action": "assertVisible",
+            "targetDescription": "Copy Mode banner visible",
+            "locatorHint": "[data-testid=copy-mode-banner]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "b9fba184-bd4f-4a00-9e44-4ceb05398922",
+        "title": "Copy Campaign prepopulates configuration including publications, channel, products, rates, schedule, and billing address",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Login URL",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Open Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open row actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Choose Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Now",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickCopyNow"
+          },
+          {
+            "id": "s9",
+            "action": "assertHidden",
+            "targetDescription": "Copy spinner hidden",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectLoadingImageHidden"
+          },
+          {
+            "id": "s10",
+            "action": "assertVisible",
+            "targetDescription": "Basic Information visible",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "expectBasicInformationVisible"
+          },
+          {
+            "id": "s11",
+            "action": "assertContainsText",
+            "targetDescription": "Channel prepopulated",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "expectDigitalVisible"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Navigate to Publications step",
+            "locatorHint": "[data-testid=nav-publications]"
+          },
+          {
+            "id": "s13",
+            "action": "assertVisible",
+            "targetDescription": "Publications prepopulated",
+            "screenName": "AddPublicationsPage",
+            "pageObjectMethod": "expectAddPublicationsSelectPublicationVisible"
+          },
+          {
+            "id": "s14",
+            "action": "tap",
+            "targetDescription": "Open Product Selection step",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "clickProductSelection"
+          },
+          {
+            "id": "s15",
+            "action": "assertVisible",
+            "targetDescription": "Product Selection visible",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "expectProductSelectionVisible"
+          },
+          {
+            "id": "s16",
+            "action": "assertVisible",
+            "targetDescription": "Rate prepopulated/visible",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "expectTargetedCpmRateVisible"
+          },
+          {
+            "id": "s17",
+            "action": "tap",
+            "targetDescription": "Next to Budget & Schedule",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickNext"
+          },
+          {
+            "id": "s18",
+            "action": "assertVisible",
+            "targetDescription": "Budget & Schedule visible",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "expectBudgetScheduleVisible"
+          },
+          {
+            "id": "s19",
+            "action": "assertVisible",
+            "targetDescription": "Campaign Duration present",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "expectCampaignDurationVisible"
+          },
+          {
+            "id": "s20",
+            "action": "tap",
+            "targetDescription": "Open Billing Information step",
+            "locatorHint": "[data-testid=nav-billing]"
+          },
+          {
+            "id": "s21",
+            "action": "assertVisible",
+            "targetDescription": "Billing Information visible",
+            "screenName": "BillingInformationPage",
+            "pageObjectMethod": "expectBillingInformationVisible"
+          },
+          {
+            "id": "s22",
+            "action": "assertValue",
+            "targetDescription": "Billing Address Line1 prefilled",
+            "screenName": "BillingInformationPage",
+            "pageObjectMethod": "getAddressLine1Value",
+            "assertion": "123 Main St"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e4807276-fd47-4d9a-8b7a-7e8bb510be6f",
+        "title": "Copied campaign has lifecycle statuses reset to initial Draft and follows standard approval workflow (no bypass)",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "admin@publisher.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Go to Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open actions for a campaign",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Now",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickCopyNow"
+          },
+          {
+            "id": "s9",
+            "action": "assertHidden",
+            "targetDescription": "Copy spinner hidden",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectLoadingImageHidden"
+          },
+          {
+            "id": "s10",
+            "action": "assertVisible",
+            "targetDescription": "Basic Information visible",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "expectBasicInformationVisible"
+          },
+          {
+            "id": "s11",
+            "action": "assertContainsText",
+            "targetDescription": "Status badge shows Draft",
+            "locatorHint": "[data-testid=status-badge]",
+            "assertion": "Draft"
+          },
+          {
+            "id": "s12",
+            "action": "assertHidden",
+            "targetDescription": "Cannot bypass approval - no Approved status yet",
+            "locatorHint": "[data-testid=status-badge][data-status='Approved']"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "dc33a6a1-a467-4d65-bd96-76808988d115",
+        "title": "Copied campaign name defaults to 'Copy of <Source Name>'",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Open Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm 'Summer Sale' exists",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Summer Sale"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open campaign actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Click Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Copy Now",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickCopyNow"
+          },
+          {
+            "id": "s10",
+            "action": "assertVisible",
+            "targetDescription": "Basic Info visible",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "expectBasicInformationVisible"
+          },
+          {
+            "id": "s11",
+            "action": "assertValue",
+            "targetDescription": "Name defaults to 'Copy of Summer Sale'",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "getCampaignNameValue",
+            "assertion": "Copy of Summer Sale"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "bf26f257-7b25-42eb-9e2d-bddb9cd6b43b",
+        "title": "Copied campaign clears all creative assets and Upload Ad step is empty",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Open Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Now",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickCopyNow"
+          },
+          {
+            "id": "s9",
+            "action": "assertHidden",
+            "targetDescription": "Spinner hidden",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectLoadingImageHidden"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Go to Creative step",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "clickCreative"
+          },
+          {
+            "id": "s11",
+            "action": "assertVisible",
+            "targetDescription": "Upload/Create Ad section visible",
+            "screenName": "UploadCreativesPage",
+            "pageObjectMethod": "expectUploadCreateAdVisible"
+          },
+          {
+            "id": "s12",
+            "action": "assertCount",
+            "targetDescription": "No uploaded creative assets listed",
+            "locatorHint": "[data-testid=uploaded-asset]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "ce73b975-77cb-4d36-8338-d8b41ca0c594",
+        "title": "Payment information is reset; billing may prefill; new Naviga Pay transaction required",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Open Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Open Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open actions and copy",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Now",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickCopyNow"
+          },
+          {
+            "id": "s9",
+            "action": "assertHidden",
+            "targetDescription": "Spinner hidden",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectLoadingImageHidden"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open Billing Information step",
+            "locatorHint": "[data-testid=nav-billing]"
+          },
+          {
+            "id": "s11",
+            "action": "assertVisible",
+            "targetDescription": "Billing Information page visible",
+            "screenName": "BillingInformationPage",
+            "pageObjectMethod": "expectBillingInformationVisible"
+          },
+          {
+            "id": "s12",
+            "action": "assertValue",
+            "targetDescription": "Billing Address Line1 may be prefilled",
+            "screenName": "BillingInformationPage",
+            "pageObjectMethod": "getAddressLine1Value",
+            "assertion": "123 Main St"
+          },
+          {
+            "id": "s13",
+            "action": "tap",
+            "targetDescription": "Proceed to Review & Payment",
+            "locatorHint": "[data-testid=nav-review-payment]"
+          },
+          {
+            "id": "s14",
+            "action": "assertVisible",
+            "targetDescription": "Payment Method section visible",
+            "screenName": "CampaignBookingPage",
+            "pageObjectMethod": "expectPaymentMethodVisible"
+          },
+          {
+            "id": "s15",
+            "action": "assertHidden",
+            "targetDescription": "No prior payment transaction exists",
+            "locatorHint": "[data-testid=payment-transaction-id]"
+          },
+          {
+            "id": "s16",
+            "action": "tap",
+            "targetDescription": "Start new payment via Confirm Payment",
+            "screenName": "CampaignBookingPage",
+            "pageObjectMethod": "clickConfirmPayment"
+          },
+          {
+            "id": "s17",
+            "action": "assertVisible",
+            "targetDescription": "Naviga Pay Payment page shown",
+            "screenName": "PaymentPage",
+            "pageObjectMethod": "expectPaymentVisible"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "d5bbe47e-79c5-42ec-af71-d15657b0c95e",
+        "title": "Each product in copied campaign validates independently for availability; valid lines pass without changes",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Go to Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Select source 'Mixed Valid Campaign'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Mixed Valid Campaign"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Copy Now",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickCopyNow"
+          },
+          {
+            "id": "s10",
+            "action": "assertVisible",
+            "targetDescription": "Basic Info visible",
+            "screenName": "BasicInformationPage",
+            "pageObjectMethod": "expectBasicInformationVisible"
+          },
+          {
+            "id": "s11",
+            "action": "assertContainsText",
+            "targetDescription": "Line 1 shows Product Available",
+            "locatorHint": "[data-testid=line-1-status]",
+            "assertion": "Available"
+          },
+          {
+            "id": "s12",
+            "action": "assertContainsText",
+            "targetDescription": "Line 2 shows Product Available",
+            "locatorHint": "[data-testid=line-2-status]",
+            "assertion": "Available"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "34a94c1f-f1a8-4e28-9125-606a680f9375",
+        "title": "Disabled product line is taken to resolution and removed; remaining valid lines preserved",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Go to Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm source 'Has Disabled Product'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Has Disabled Product"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Resolution banner for disabled product shown",
+            "locatorHint": "[data-testid=product-disabled-banner]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Confirm remove disabled line",
+            "locatorHint": "[data-testid=remove-line]"
+          },
+          {
+            "id": "s11",
+            "action": "assertHidden",
+            "targetDescription": "Disabled product line removed",
+            "locatorHint": "[data-testid=line-disabled-product]"
+          },
+          {
+            "id": "s12",
+            "action": "assertContainsText",
+            "targetDescription": "Valid line remains unchanged",
+            "locatorHint": "[data-testid=line-1-details]",
+            "assertion": "Homepage Banner"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "6aef190c-c099-41f6-9285-104c62291dee",
+        "title": "Disabled rate requires replacement; after selecting new rate schedules are cleared and must be reselected",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm source 'Has Disabled Rate'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Has Disabled Rate"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Rate replacement required banner",
+            "locatorHint": "[data-testid=rate-disabled-banner]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open Select Rate for affected line",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickProductSelectionSelectRate"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Select replacement rate (Targeted CPM)",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickTargetedCpmRate"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Proceed to Budget & Schedule",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickNext"
+          },
+          {
+            "id": "s13",
+            "action": "assertCount",
+            "targetDescription": "Schedules cleared (no preselected dates)",
+            "locatorHint": "[data-testid=selected-date]"
+          },
+          {
+            "id": "s14",
+            "action": "tap",
+            "targetDescription": "Open calendar",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickCalendarViewIsOpen"
+          },
+          {
+            "id": "s15",
+            "action": "tap",
+            "targetDescription": "Pick a new date (first available)",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+          },
+          {
+            "id": "s16",
+            "action": "tap",
+            "targetDescription": "Confirm calendar selection",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickOk"
+          },
+          {
+            "id": "s17",
+            "action": "assertCountGreaterThan",
+            "targetDescription": "New dates selected",
+            "locatorHint": "[data-testid=selected-date]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "8656f183-c053-4e55-a6a9-32099671a9e3",
+        "title": "SLA cutoff validation blocks until schedule corrected; opening calendar shows no preselected dates; user selects valid dates",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm source 'SLA Violation Campaign'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "SLA Violation Campaign"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Cutoff validation error banner",
+            "locatorHint": "[data-testid=cutoff-error-banner]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open schedule editor",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickCalendarViewIsOpen"
+          },
+          {
+            "id": "s11",
+            "action": "assertCount",
+            "targetDescription": "No preselected dates in calendar",
+            "locatorHint": "[data-testid=selected-date]"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Select new valid date",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+          },
+          {
+            "id": "s13",
+            "action": "tap",
+            "targetDescription": "Confirm selection",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickOk"
+          },
+          {
+            "id": "s14",
+            "action": "assertHidden",
+            "targetDescription": "Cutoff error banner cleared",
+            "locatorHint": "[data-testid=cutoff-error-banner]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "0cc37072-0864-41c1-a221-dfcb672f3cf8",
+        "title": "Multiple validation issues enforce order: replace disabled rate before correcting expired schedule",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm source 'Disabled Rate + Expired Schedule'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Disabled Rate + Expired Schedule"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "assertDisabled",
+            "targetDescription": "Schedule correction disabled until rate fixed",
+            "locatorHint": "[data-testid=open-schedule-editor]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open Select Rate",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickProductSelectionSelectRate"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Pick replacement rate",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickTargetedCpmRate"
+          },
+          {
+            "id": "s12",
+            "action": "assertEnabled",
+            "targetDescription": "Schedule editor now enabled",
+            "locatorHint": "[data-testid=open-schedule-editor]"
+          },
+          {
+            "id": "s13",
+            "action": "tap",
+            "targetDescription": "Open schedule editor",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickCalendarViewIsOpen"
+          },
+          {
+            "id": "s14",
+            "action": "tap",
+            "targetDescription": "Select new valid date",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+          },
+          {
+            "id": "s15",
+            "action": "tap",
+            "targetDescription": "Confirm date",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickOk"
+          },
+          {
+            "id": "s16",
+            "action": "assertHidden",
+            "targetDescription": "All validation banners cleared",
+            "locatorHint": "[data-testid=validation-banner]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "418bd0e7-ffa4-4b80-b52a-4e840380720d",
+        "title": "Valid lines remain unchanged while invalid lines are corrected or removed",
+        "priority": "P2",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm source 'Mixed Valid Campaign'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Mixed Valid Campaign"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "assertContainsText",
+            "targetDescription": "Valid line details captured",
+            "locatorHint": "[data-testid=line-1-details]",
+            "assertion": "Homepage Banner • CPM 10 • Mon-Fri"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Resolve invalid line (remove)",
+            "locatorHint": "[data-testid=line-2-remove]"
+          },
+          {
+            "id": "s11",
+            "action": "assertContainsText",
+            "targetDescription": "Valid line remains unchanged after resolution",
+            "locatorHint": "[data-testid=line-1-details]",
+            "assertion": "Homepage Banner • CPM 10 • Mon-Fri"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e222059c-d7b3-4fec-8b17-ee412e279fad",
+        "title": "Booking is blocked when invalid lines remain and displays validation message; no provisional booking record created",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm source with invalid lines",
+            "locatorHint": "#campaigns-table",
+            "assertion": "SLA Violation Campaign"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Open Review & Payment",
+            "locatorHint": "[data-testid=nav-review-payment]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Attempt to Confirm Payment (book)",
+            "screenName": "CampaignBookingPage",
+            "pageObjectMethod": "clickConfirmPayment"
+          },
+          {
+            "id": "s11",
+            "action": "assertVisible",
+            "targetDescription": "Validation error message displayed",
+            "locatorHint": "[data-testid=booking-blocked-message]"
+          },
+          {
+            "id": "s12",
+            "action": "assertHidden",
+            "targetDescription": "No provisional booking record created",
+            "locatorHint": "[data-testid=provisional-booking-id]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "604b38d2-67af-45ce-b02b-734a6f74a6be",
+        "title": "After resolving all invalid lines booking is enabled; new payment completed; campaign follows standard lifecycle",
+        "priority": "P0",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm source 'Mixed Issues Campaign'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Mixed Issues Campaign"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Resolve rate issue (select replacement)",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickProductSelectionSelectRate"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Pick Targeted CPM",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickTargetedCpmRate"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Proceed to Budget & Schedule",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickNext"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Open calendar",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickCalendarViewIsOpen"
+          },
+          {
+            "id": "s13",
+            "action": "tap",
+            "targetDescription": "Select valid dates",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+          },
+          {
+            "id": "s14",
+            "action": "tap",
+            "targetDescription": "Confirm dates",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickOk"
+          },
+          {
+            "id": "s15",
+            "action": "tap",
+            "targetDescription": "Open Review & Payment",
+            "locatorHint": "[data-testid=nav-review-payment]"
+          },
+          {
+            "id": "s16",
+            "action": "assertEnabled",
+            "targetDescription": "Confirm Payment is enabled",
+            "locatorHint": "[data-testid=confirm-payment]"
+          },
+          {
+            "id": "s17",
+            "action": "tap",
+            "targetDescription": "Confirm Payment",
+            "screenName": "CampaignBookingPage",
+            "pageObjectMethod": "clickConfirmPayment"
+          },
+          {
+            "id": "s18",
+            "action": "assertVisible",
+            "targetDescription": "Payment screen visible",
+            "screenName": "PaymentPage",
+            "pageObjectMethod": "expectPaymentVisible"
+          },
+          {
+            "id": "s19",
+            "action": "tap",
+            "targetDescription": "Select saved payment profile",
+            "screenName": "PaymentPage",
+            "pageObjectMethod": "clickNameJcbSelected"
+          },
+          {
+            "id": "s20",
+            "action": "tap",
+            "targetDescription": "Next on Payment",
+            "screenName": "PaymentPage",
+            "pageObjectMethod": "clickNext"
+          },
+          {
+            "id": "s21",
+            "action": "assertVisible",
+            "targetDescription": "Payment successful modal visible",
+            "screenName": "CampaignBookingPage",
+            "pageObjectMethod": "expectPaymentSuccessfulVisible"
+          },
+          {
+            "id": "s22",
+            "action": "tap",
+            "targetDescription": "Continue to Dashboard",
+            "screenName": "CampaignBookingPage",
+            "pageObjectMethod": "clickContinueToDashboard"
+          },
+          {
+            "id": "s23",
+            "action": "tap",
+            "targetDescription": "Navigate back to Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s24",
+            "action": "assertContainsText",
+            "targetDescription": "Lifecycle shows Submitted",
+            "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+            "assertion": "Submitted"
+          },
+          {
+            "id": "s25",
+            "action": "assertContainsText",
+            "targetDescription": "Lifecycle includes Creative Review",
+            "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+            "assertion": "Creative Review"
+          },
+          {
+            "id": "s26",
+            "action": "assertContainsText",
+            "targetDescription": "Lifecycle includes Approval",
+            "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+            "assertion": "Approval"
+          },
+          {
+            "id": "s27",
+            "action": "assertContainsText",
+            "targetDescription": "Lifecycle includes Scheduling",
+            "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+            "assertion": "Scheduling"
+          },
+          {
+            "id": "s28",
+            "action": "assertContainsText",
+            "targetDescription": "Lifecycle includes Delivery",
+            "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+            "assertion": "Delivery"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "8f91ad08-a7e4-44df-a3a7-a15e2b21ef53",
+        "title": "Removing all campaign lines during resolution cancels copy and returns to Campaign Listing",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "admin@publisher.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm 'All Invalid Lines Campaign'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "All Invalid Lines Campaign"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Remove line 1",
+            "locatorHint": "[data-testid=line-1-remove]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Remove line 2 (last remaining)",
+            "locatorHint": "[data-testid=line-2-remove]"
+          },
+          {
+            "id": "s11",
+            "action": "assertVisible",
+            "targetDescription": "Returned to Campaign Listing",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "expectCampaignsVisible"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "e0675c72-a4fa-4159-a4c1-8057ae4860b9",
+        "title": "Replacement product with no active rates shows error; user selects different product with active rates to continue",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm 'Has Disabled Rate'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "Has Disabled Rate"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Select replacement product",
+            "locatorHint": "[data-testid=select-product]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Choose product with no active rates",
+            "locatorHint": "[data-testid=product-card-no-rates]"
+          },
+          {
+            "id": "s11",
+            "action": "assertVisible",
+            "targetDescription": "No active rates error shown",
+            "locatorHint": "[data-testid=no-rates-error]"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Choose a different product",
+            "locatorHint": "[data-testid=product-card-has-rates]"
+          },
+          {
+            "id": "s13",
+            "action": "tap",
+            "targetDescription": "Open Select Rate",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickProductSelectionSelectRate"
+          },
+          {
+            "id": "s14",
+            "action": "tap",
+            "targetDescription": "Select available rate (Targeted CPM)",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickTargetedCpmRate"
+          },
+          {
+            "id": "s15",
+            "action": "assertHidden",
+            "targetDescription": "No active rates error cleared",
+            "locatorHint": "[data-testid=no-rates-error]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "3c7aa8d9-c551-4239-a2f6-8179cd9988f7",
+        "title": "Audit logging captures changes during resolution (status, product, rate, schedule) with timestamp",
+        "priority": "P2",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "admin@publisher.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open actions and copy a campaign with issues",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Replace disabled rate",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickProductSelectionSelectRate"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Pick Targeted CPM rate",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickTargetedCpmRate"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Open schedule editor",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickCalendarViewIsOpen"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Select a new date",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Confirm date",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickOk"
+          },
+          {
+            "id": "s13",
+            "action": "tap",
+            "targetDescription": "Open Audit Log tab/panel",
+            "locatorHint": "[data-testid=audit-log-tab]"
+          },
+          {
+            "id": "s14",
+            "action": "assertVisible",
+            "targetDescription": "Audit log row for rate change",
+            "locatorHint": "[data-testid=audit-log-row][data-action='RateChanged']"
+          },
+          {
+            "id": "s15",
+            "action": "assertVisible",
+            "targetDescription": "Audit log row for schedule change",
+            "locatorHint": "[data-testid=audit-log-row][data-action='ScheduleUpdated']"
+          },
+          {
+            "id": "s16",
+            "action": "assertContainsText",
+            "targetDescription": "Audit log entry contains timestamp",
+            "locatorHint": "[data-testid=audit-log-row]:first-child [data-testid=timestamp]",
+            "assertion": ":"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "17941828-5191-4b79-b970-6bdf7738797c",
+        "title": "No provisional booking records created when cutoff validation fails until resolved",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "assertContainsText",
+            "targetDescription": "Confirm 'SLA Violation Campaign'",
+            "locatorHint": "#campaigns-table",
+            "assertion": "SLA Violation Campaign"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Open actions",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s9",
+            "action": "assertVisible",
+            "targetDescription": "Cutoff validation banner shown",
+            "locatorHint": "[data-testid=cutoff-error-banner]"
+          },
+          {
+            "id": "s10",
+            "action": "tap",
+            "targetDescription": "Go to Review & Payment",
+            "locatorHint": "[data-testid=nav-review-payment]"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Try to Confirm Payment",
+            "screenName": "CampaignBookingPage",
+            "pageObjectMethod": "clickConfirmPayment"
+          },
+          {
+            "id": "s12",
+            "action": "assertHidden",
+            "targetDescription": "No provisional booking record created",
+            "locatorHint": "[data-testid=provisional-booking-id]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "6dd915fd-cd55-41e0-9488-0733c8fed4d3",
+        "title": "Validate rates remain active for all lines after copy (independent rate validation)",
+        "priority": "P2",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open actions for 'Rate Check Campaign'",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s8",
+            "action": "assertContainsText",
+            "targetDescription": "Line 1 rate active",
+            "locatorHint": "[data-testid=line-1-rate-status]",
+            "assertion": "Active"
+          },
+          {
+            "id": "s9",
+            "action": "assertContainsText",
+            "targetDescription": "Line 2 rate active",
+            "locatorHint": "[data-testid=line-2-rate-status]",
+            "assertion": "Active"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      },
+      {
+        "id": "af14fd3e-8169-465e-a057-be549122a5f3",
+        "title": "Booking enabled only after revalidation passes; user sees clear resolution messaging when blocked and success messaging when enabled",
+        "priority": "P1",
+        "platforms": [
+          "chrome"
+        ],
+        "preconditions": [],
+        "steps": [
+          {
+            "id": "s1",
+            "action": "openUrl",
+            "targetDescription": "Login",
+            "value": "https://app.propel.example/login"
+          },
+          {
+            "id": "s2",
+            "action": "fill",
+            "targetDescription": "Email",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillEmail",
+            "value": "user@advertiser.test"
+          },
+          {
+            "id": "s3",
+            "action": "fill",
+            "targetDescription": "Password",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "fillPassword",
+            "value": "Password123!"
+          },
+          {
+            "id": "s4",
+            "action": "tap",
+            "targetDescription": "Log In",
+            "screenName": "LoginPage",
+            "pageObjectMethod": "clickLogIn"
+          },
+          {
+            "id": "s5",
+            "action": "tap",
+            "targetDescription": "Campaigns",
+            "screenName": "DashboardPage",
+            "pageObjectMethod": "clickCampaigns"
+          },
+          {
+            "id": "s6",
+            "action": "tap",
+            "targetDescription": "Open actions for 'Has Disabled Rate'",
+            "screenName": "CampaignsPage",
+            "pageObjectMethod": "clickMuiTableRoot1TableButton"
+          },
+          {
+            "id": "s7",
+            "action": "tap",
+            "targetDescription": "Copy Campaign",
+            "locatorHint": ".menu [data-testid=copy-campaign]"
+          },
+          {
+            "id": "s8",
+            "action": "tap",
+            "targetDescription": "Open Review & Payment",
+            "locatorHint": "[data-testid=nav-review-payment]"
+          },
+          {
+            "id": "s9",
+            "action": "tap",
+            "targetDescription": "Attempt to Confirm Payment",
+            "screenName": "CampaignBookingPage",
+            "pageObjectMethod": "clickConfirmPayment"
+          },
+          {
+            "id": "s10",
+            "action": "assertContainsText",
+            "targetDescription": "Blocked message with corrective actions",
+            "locatorHint": "[data-testid=booking-blocked-message]",
+            "assertion": "Please resolve rate and schedule issues"
+          },
+          {
+            "id": "s11",
+            "action": "tap",
+            "targetDescription": "Fix rate: Select replacement",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickProductSelectionSelectRate"
+          },
+          {
+            "id": "s12",
+            "action": "tap",
+            "targetDescription": "Pick Targeted CPM",
+            "screenName": "ProductSelectionPage",
+            "pageObjectMethod": "clickTargetedCpmRate"
+          },
+          {
+            "id": "s13",
+            "action": "tap",
+            "targetDescription": "Fix schedule: Open calendar",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickCalendarViewIsOpen"
+          },
+          {
+            "id": "s14",
+            "action": "tap",
+            "targetDescription": "Select valid date",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+          },
+          {
+            "id": "s15",
+            "action": "tap",
+            "targetDescription": "Confirm date",
+            "screenName": "BudgetAndSchedulePage",
+            "pageObjectMethod": "clickOk"
+          },
+          {
+            "id": "s16",
+            "action": "tap",
+            "targetDescription": "Re-open Review & Payment",
+            "locatorHint": "[data-testid=nav-review-payment]"
+          },
+          {
+            "id": "s17",
+            "action": "assertHidden",
+            "targetDescription": "Blocked message cleared",
+            "locatorHint": "[data-testid=booking-blocked-message]"
+          },
+          {
+            "id": "s18",
+            "action": "assertEnabled",
+            "targetDescription": "Confirm Payment now enabled",
+            "locatorHint": "[data-testid=confirm-payment]"
+          }
+        ],
+        "tags": [
+          "@functional",
+          "@regression"
+        ]
+      }
+    ]
+  }
+}

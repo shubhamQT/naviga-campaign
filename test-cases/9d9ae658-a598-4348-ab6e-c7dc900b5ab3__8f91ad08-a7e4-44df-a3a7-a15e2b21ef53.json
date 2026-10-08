@@ -1,0 +1,96 @@
+{
+  "id": "8f91ad08-a7e4-44df-a3a7-a15e2b21ef53",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "8f91ad08-a7e4-44df-a3a7-a15e2b21ef53",
+    "title": "Removing all campaign lines during resolution cancels copy and returns to Campaign Listing",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "admin@publisher.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "assertContainsText",
+        "targetDescription": "Confirm 'All Invalid Lines Campaign'",
+        "locatorHint": "#campaigns-table",
+        "assertion": "All Invalid Lines Campaign"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open actions",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s9",
+        "action": "tap",
+        "targetDescription": "Remove line 1",
+        "locatorHint": "[data-testid=line-1-remove]"
+      },
+      {
+        "id": "s10",
+        "action": "tap",
+        "targetDescription": "Remove line 2 (last remaining)",
+        "locatorHint": "[data-testid=line-2-remove]"
+      },
+      {
+        "id": "s11",
+        "action": "assertVisible",
+        "targetDescription": "Returned to Campaign Listing",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "expectCampaignsVisible"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

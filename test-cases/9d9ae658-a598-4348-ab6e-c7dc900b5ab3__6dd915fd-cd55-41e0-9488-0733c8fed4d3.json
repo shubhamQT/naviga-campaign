@@ -1,0 +1,84 @@
+{
+  "id": "6dd915fd-cd55-41e0-9488-0733c8fed4d3",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "6dd915fd-cd55-41e0-9488-0733c8fed4d3",
+    "title": "Validate rates remain active for all lines after copy (independent rate validation)",
+    "priority": "P2",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "Open actions for 'Rate Check Campaign'",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s8",
+        "action": "assertContainsText",
+        "targetDescription": "Line 1 rate active",
+        "locatorHint": "[data-testid=line-1-rate-status]",
+        "assertion": "Active"
+      },
+      {
+        "id": "s9",
+        "action": "assertContainsText",
+        "targetDescription": "Line 2 rate active",
+        "locatorHint": "[data-testid=line-2-rate-status]",
+        "assertion": "Active"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

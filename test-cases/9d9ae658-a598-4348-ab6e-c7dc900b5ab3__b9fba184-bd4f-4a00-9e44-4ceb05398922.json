@@ -1,0 +1,174 @@
+{
+  "id": "b9fba184-bd4f-4a00-9e44-4ceb05398922",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "b9fba184-bd4f-4a00-9e44-4ceb05398922",
+    "title": "Copy Campaign prepopulates configuration including publications, channel, products, rates, schedule, and billing address",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Login URL",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Open Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "Open row actions",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Choose Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Copy Now",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickCopyNow"
+      },
+      {
+        "id": "s9",
+        "action": "assertHidden",
+        "targetDescription": "Copy spinner hidden",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "expectLoadingImageHidden"
+      },
+      {
+        "id": "s10",
+        "action": "assertVisible",
+        "targetDescription": "Basic Information visible",
+        "screenName": "BasicInformationPage",
+        "pageObjectMethod": "expectBasicInformationVisible"
+      },
+      {
+        "id": "s11",
+        "action": "assertContainsText",
+        "targetDescription": "Channel prepopulated",
+        "screenName": "BasicInformationPage",
+        "pageObjectMethod": "expectDigitalVisible"
+      },
+      {
+        "id": "s12",
+        "action": "tap",
+        "targetDescription": "Navigate to Publications step",
+        "locatorHint": "[data-testid=nav-publications]"
+      },
+      {
+        "id": "s13",
+        "action": "assertVisible",
+        "targetDescription": "Publications prepopulated",
+        "screenName": "AddPublicationsPage",
+        "pageObjectMethod": "expectAddPublicationsSelectPublicationVisible"
+      },
+      {
+        "id": "s14",
+        "action": "tap",
+        "targetDescription": "Open Product Selection step",
+        "screenName": "BasicInformationPage",
+        "pageObjectMethod": "clickProductSelection"
+      },
+      {
+        "id": "s15",
+        "action": "assertVisible",
+        "targetDescription": "Product Selection visible",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "expectProductSelectionVisible"
+      },
+      {
+        "id": "s16",
+        "action": "assertVisible",
+        "targetDescription": "Rate prepopulated/visible",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "expectTargetedCpmRateVisible"
+      },
+      {
+        "id": "s17",
+        "action": "tap",
+        "targetDescription": "Next to Budget & Schedule",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickNext"
+      },
+      {
+        "id": "s18",
+        "action": "assertVisible",
+        "targetDescription": "Budget & Schedule visible",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "expectBudgetScheduleVisible"
+      },
+      {
+        "id": "s19",
+        "action": "assertVisible",
+        "targetDescription": "Campaign Duration present",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "expectCampaignDurationVisible"
+      },
+      {
+        "id": "s20",
+        "action": "tap",
+        "targetDescription": "Open Billing Information step",
+        "locatorHint": "[data-testid=nav-billing]"
+      },
+      {
+        "id": "s21",
+        "action": "assertVisible",
+        "targetDescription": "Billing Information visible",
+        "screenName": "BillingInformationPage",
+        "pageObjectMethod": "expectBillingInformationVisible"
+      },
+      {
+        "id": "s22",
+        "action": "assertValue",
+        "targetDescription": "Billing Address Line1 prefilled",
+        "screenName": "BillingInformationPage",
+        "pageObjectMethod": "getAddressLine1Value",
+        "assertion": "123 Main St"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "id": "604b38d2-67af-45ce-b02b-734a6f74a6be",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "604b38d2-67af-45ce-b02b-734a6f74a6be",
+    "title": "After resolving all invalid lines booking is enabled; new payment completed; campaign follows standard lifecycle",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "assertContainsText",
+        "targetDescription": "Confirm source 'Mixed Issues Campaign'",
+        "locatorHint": "#campaigns-table",
+        "assertion": "Mixed Issues Campaign"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open actions",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s9",
+        "action": "tap",
+        "targetDescription": "Resolve rate issue (select replacement)",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickProductSelectionSelectRate"
+      },
+      {
+        "id": "s10",
+        "action": "tap",
+        "targetDescription": "Pick Targeted CPM",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickTargetedCpmRate"
+      },
+      {
+        "id": "s11",
+        "action": "tap",
+        "targetDescription": "Proceed to Budget & Schedule",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickNext"
+      },
+      {
+        "id": "s12",
+        "action": "tap",
+        "targetDescription": "Open calendar",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickCalendarViewIsOpen"
+      },
+      {
+        "id": "s13",
+        "action": "tap",
+        "targetDescription": "Select valid dates",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+      },
+      {
+        "id": "s14",
+        "action": "tap",
+        "targetDescription": "Confirm dates",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickOk"
+      },
+      {
+        "id": "s15",
+        "action": "tap",
+        "targetDescription": "Open Review & Payment",
+        "locatorHint": "[data-testid=nav-review-payment]"
+      },
+      {
+        "id": "s16",
+        "action": "assertEnabled",
+        "targetDescription": "Confirm Payment is enabled",
+        "locatorHint": "[data-testid=confirm-payment]"
+      },
+      {
+        "id": "s17",
+        "action": "tap",
+        "targetDescription": "Confirm Payment",
+        "screenName": "CampaignBookingPage",
+        "pageObjectMethod": "clickConfirmPayment"
+      },
+      {
+        "id": "s18",
+        "action": "assertVisible",
+        "targetDescription": "Payment screen visible",
+        "screenName": "PaymentPage",
+        "pageObjectMethod": "expectPaymentVisible"
+      },
+      {
+        "id": "s19",
+        "action": "tap",
+        "targetDescription": "Select saved payment profile",
+        "screenName": "PaymentPage",
+        "pageObjectMethod": "clickNameJcbSelected"
+      },
+      {
+        "id": "s20",
+        "action": "tap",
+        "targetDescription": "Next on Payment",
+        "screenName": "PaymentPage",
+        "pageObjectMethod": "clickNext"
+      },
+      {
+        "id": "s21",
+        "action": "assertVisible",
+        "targetDescription": "Payment successful modal visible",
+        "screenName": "CampaignBookingPage",
+        "pageObjectMethod": "expectPaymentSuccessfulVisible"
+      },
+      {
+        "id": "s22",
+        "action": "tap",
+        "targetDescription": "Continue to Dashboard",
+        "screenName": "CampaignBookingPage",
+        "pageObjectMethod": "clickContinueToDashboard"
+      },
+      {
+        "id": "s23",
+        "action": "tap",
+        "targetDescription": "Navigate back to Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s24",
+        "action": "assertContainsText",
+        "targetDescription": "Lifecycle shows Submitted",
+        "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+        "assertion": "Submitted"
+      },
+      {
+        "id": "s25",
+        "action": "assertContainsText",
+        "targetDescription": "Lifecycle includes Creative Review",
+        "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+        "assertion": "Creative Review"
+      },
+      {
+        "id": "s26",
+        "action": "assertContainsText",
+        "targetDescription": "Lifecycle includes Approval",
+        "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+        "assertion": "Approval"
+      },
+      {
+        "id": "s27",
+        "action": "assertContainsText",
+        "targetDescription": "Lifecycle includes Scheduling",
+        "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+        "assertion": "Scheduling"
+      },
+      {
+        "id": "s28",
+        "action": "assertContainsText",
+        "targetDescription": "Lifecycle includes Delivery",
+        "locatorHint": "#campaigns-table [data-testid=lifecyle-steps]",
+        "assertion": "Delivery"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

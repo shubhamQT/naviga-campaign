@@ -1,0 +1,137 @@
+{
+  "id": "6aef190c-c099-41f6-9285-104c62291dee",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "6aef190c-c099-41f6-9285-104c62291dee",
+    "title": "Disabled rate requires replacement; after selecting new rate schedules are cleared and must be reselected",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "assertContainsText",
+        "targetDescription": "Confirm source 'Has Disabled Rate'",
+        "locatorHint": "#campaigns-table",
+        "assertion": "Has Disabled Rate"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open actions",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s9",
+        "action": "assertVisible",
+        "targetDescription": "Rate replacement required banner",
+        "locatorHint": "[data-testid=rate-disabled-banner]"
+      },
+      {
+        "id": "s10",
+        "action": "tap",
+        "targetDescription": "Open Select Rate for affected line",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickProductSelectionSelectRate"
+      },
+      {
+        "id": "s11",
+        "action": "tap",
+        "targetDescription": "Select replacement rate (Targeted CPM)",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickTargetedCpmRate"
+      },
+      {
+        "id": "s12",
+        "action": "tap",
+        "targetDescription": "Proceed to Budget & Schedule",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickNext"
+      },
+      {
+        "id": "s13",
+        "action": "assertCount",
+        "targetDescription": "Schedules cleared (no preselected dates)",
+        "locatorHint": "[data-testid=selected-date]"
+      },
+      {
+        "id": "s14",
+        "action": "tap",
+        "targetDescription": "Open calendar",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickCalendarViewIsOpen"
+      },
+      {
+        "id": "s15",
+        "action": "tap",
+        "targetDescription": "Pick a new date (first available)",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+      },
+      {
+        "id": "s16",
+        "action": "tap",
+        "targetDescription": "Confirm calendar selection",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickOk"
+      },
+      {
+        "id": "s17",
+        "action": "assertCountGreaterThan",
+        "targetDescription": "New dates selected",
+        "locatorHint": "[data-testid=selected-date]"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

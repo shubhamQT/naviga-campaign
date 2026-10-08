@@ -1,0 +1,105 @@
+{
+  "id": "d5bbe47e-79c5-42ec-af71-d15657b0c95e",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "d5bbe47e-79c5-42ec-af71-d15657b0c95e",
+    "title": "Each product in copied campaign validates independently for availability; valid lines pass without changes",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Go to Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "assertContainsText",
+        "targetDescription": "Select source 'Mixed Valid Campaign'",
+        "locatorHint": "#campaigns-table",
+        "assertion": "Mixed Valid Campaign"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open actions",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s9",
+        "action": "tap",
+        "targetDescription": "Copy Now",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickCopyNow"
+      },
+      {
+        "id": "s10",
+        "action": "assertVisible",
+        "targetDescription": "Basic Info visible",
+        "screenName": "BasicInformationPage",
+        "pageObjectMethod": "expectBasicInformationVisible"
+      },
+      {
+        "id": "s11",
+        "action": "assertContainsText",
+        "targetDescription": "Line 1 shows Product Available",
+        "locatorHint": "[data-testid=line-1-status]",
+        "assertion": "Available"
+      },
+      {
+        "id": "s12",
+        "action": "assertContainsText",
+        "targetDescription": "Line 2 shows Product Available",
+        "locatorHint": "[data-testid=line-2-status]",
+        "assertion": "Available"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

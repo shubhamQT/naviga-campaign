@@ -1,0 +1,99 @@
+{
+  "id": "dc33a6a1-a467-4d65-bd96-76808988d115",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "dc33a6a1-a467-4d65-bd96-76808988d115",
+    "title": "Copied campaign name defaults to 'Copy of <Source Name>'",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Open Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "assertContainsText",
+        "targetDescription": "Confirm 'Summer Sale' exists",
+        "locatorHint": "#campaigns-table",
+        "assertion": "Summer Sale"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open campaign actions",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Click Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s9",
+        "action": "tap",
+        "targetDescription": "Copy Now",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickCopyNow"
+      },
+      {
+        "id": "s10",
+        "action": "assertVisible",
+        "targetDescription": "Basic Info visible",
+        "screenName": "BasicInformationPage",
+        "pageObjectMethod": "expectBasicInformationVisible"
+      },
+      {
+        "id": "s11",
+        "action": "assertValue",
+        "targetDescription": "Name defaults to 'Copy of Summer Sale'",
+        "screenName": "BasicInformationPage",
+        "pageObjectMethod": "getCampaignNameValue",
+        "assertion": "Copy of Summer Sale"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

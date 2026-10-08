@@ -1,0 +1,97 @@
+{
+  "id": "418bd0e7-ffa4-4b80-b52a-4e840380720d",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "418bd0e7-ffa4-4b80-b52a-4e840380720d",
+    "title": "Valid lines remain unchanged while invalid lines are corrected or removed",
+    "priority": "P2",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "assertContainsText",
+        "targetDescription": "Confirm source 'Mixed Valid Campaign'",
+        "locatorHint": "#campaigns-table",
+        "assertion": "Mixed Valid Campaign"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open actions",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s9",
+        "action": "assertContainsText",
+        "targetDescription": "Valid line details captured",
+        "locatorHint": "[data-testid=line-1-details]",
+        "assertion": "Homepage Banner • CPM 10 • Mon-Fri"
+      },
+      {
+        "id": "s10",
+        "action": "tap",
+        "targetDescription": "Resolve invalid line (remove)",
+        "locatorHint": "[data-testid=line-2-remove]"
+      },
+      {
+        "id": "s11",
+        "action": "assertContainsText",
+        "targetDescription": "Valid line remains unchanged after resolution",
+        "locatorHint": "[data-testid=line-1-details]",
+        "assertion": "Homepage Banner • CPM 10 • Mon-Fri"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

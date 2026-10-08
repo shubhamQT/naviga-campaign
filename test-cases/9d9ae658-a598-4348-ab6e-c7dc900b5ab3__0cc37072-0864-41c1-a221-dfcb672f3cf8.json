@@ -1,0 +1,130 @@
+{
+  "id": "0cc37072-0864-41c1-a221-dfcb672f3cf8",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "0cc37072-0864-41c1-a221-dfcb672f3cf8",
+    "title": "Multiple validation issues enforce order: replace disabled rate before correcting expired schedule",
+    "priority": "P1",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "assertContainsText",
+        "targetDescription": "Confirm source 'Disabled Rate + Expired Schedule'",
+        "locatorHint": "#campaigns-table",
+        "assertion": "Disabled Rate + Expired Schedule"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Open actions",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s9",
+        "action": "assertDisabled",
+        "targetDescription": "Schedule correction disabled until rate fixed",
+        "locatorHint": "[data-testid=open-schedule-editor]"
+      },
+      {
+        "id": "s10",
+        "action": "tap",
+        "targetDescription": "Open Select Rate",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickProductSelectionSelectRate"
+      },
+      {
+        "id": "s11",
+        "action": "tap",
+        "targetDescription": "Pick replacement rate",
+        "screenName": "ProductSelectionPage",
+        "pageObjectMethod": "clickTargetedCpmRate"
+      },
+      {
+        "id": "s12",
+        "action": "assertEnabled",
+        "targetDescription": "Schedule editor now enabled",
+        "locatorHint": "[data-testid=open-schedule-editor]"
+      },
+      {
+        "id": "s13",
+        "action": "tap",
+        "targetDescription": "Open schedule editor",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickCalendarViewIsOpen"
+      },
+      {
+        "id": "s14",
+        "action": "tap",
+        "targetDescription": "Select new valid date",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickMuiDayCalendarRoot1TableButton"
+      },
+      {
+        "id": "s15",
+        "action": "tap",
+        "targetDescription": "Confirm date",
+        "screenName": "BudgetAndSchedulePage",
+        "pageObjectMethod": "clickOk"
+      },
+      {
+        "id": "s16",
+        "action": "assertHidden",
+        "targetDescription": "All validation banners cleared",
+        "locatorHint": "[data-testid=validation-banner]"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

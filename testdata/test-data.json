@@ -1,1 +1,82 @@
-{}
+{
+  "launchCopyCampaignOpensNewCampaignInCopyMode": {
+    "loginEmail": "user@advertiser.test",
+    "loginPassword": "Password123!"
+  },
+  "copyCampaignPrepopulatesConfigurationIncludingPublicationsChannelProductsRatesScheduleAndBillingAddress": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "copiedCampaignHasLifecycleStatusesResetToInitialDraftAndFollowsStandardApprovalWorkflowNoBypass": {
+    "email": "admin@publisher.test",
+    "password": "Password123!"
+  },
+  "copiedCampaignNameDefaultsToCopyOfSourceName": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "copiedCampaignClearsAllCreativeAssetsAndUploadAdStepIsEmpty": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "paymentInformationIsResetBillingMayPrefillNewNavigaPayTransactionRequired": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "eachProductInCopiedCampaignValidatesIndependentlyForAvailabilityValidLinesPassWithoutChanges": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "disabledProductLineIsTakenToResolutionAndRemovedRemainingValidLinesPreserved": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "disabledRateRequiresReplacementAfterSelectingNewRateSchedulesAreClearedAndMustBeReselected": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "slaCutoffValidationBlocksUntilScheduleCorrectedOpeningCalendarShowsNoPreselectedDatesUserSelectsValidDates": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "multipleValidationIssuesEnforceOrderReplaceDisabledRateBeforeCorrectingExpiredSchedule": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "validLinesRemainUnchangedWhileInvalidLinesAreCorrectedOrRemoved": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "bookingIsBlockedWhenInvalidLinesRemainAndDisplaysValidationMessageNoProvisionalBookingRecordCreated": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "afterResolvingAllInvalidLinesBookingIsEnabledNewPaymentCompletedCampaignFollowsStandardLifecycle": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "removingAllCampaignLinesDuringResolutionCancelsCopyAndReturnsToCampaignListing": {
+    "email": "admin@publisher.test",
+    "password": "Password123!"
+  },
+  "replacementProductWithNoActiveRatesShowsErrorUserSelectsDifferentProductWithActiveRatesToContinue": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "auditLoggingCapturesChangesDuringResolutionStatusProductRateScheduleWithTimestamp": {
+    "email": "admin@publisher.test",
+    "password": "Password123!"
+  },
+  "noProvisionalBookingRecordsCreatedWhenCutoffValidationFailsUntilResolved": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "validateRatesRemainActiveForAllLinesAfterCopyIndependentRateValidation": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  },
+  "bookingEnabledOnlyAfterRevalidationPassesUserSeesClearResolutionMessagingWhenBlockedAndSuccessMessagingWhenEnabled": {
+    "email": "user@advertiser.test",
+    "password": "Password123!"
+  }
+}

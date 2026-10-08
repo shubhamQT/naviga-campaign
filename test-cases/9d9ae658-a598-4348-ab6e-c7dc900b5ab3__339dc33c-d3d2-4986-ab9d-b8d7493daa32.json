@@ -1,0 +1,132 @@
+{
+  "id": "339dc33c-d3d2-4986-ab9d-b8d7493daa32",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "339dc33c-d3d2-4986-ab9d-b8d7493daa32",
+    "title": "Launch Copy Campaign opens new campaign in Copy Mode",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Login URL",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Login email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Login password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Click Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "assertVisible",
+        "targetDescription": "Dashboard visible",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "expectDashboardVisible"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "Go to Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s7",
+        "action": "assertVisible",
+        "targetDescription": "Campaigns list visible",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "expectCampaignsVisible"
+      },
+      {
+        "id": "s8",
+        "action": "assertContainsText",
+        "targetDescription": "Confirm source campaign 'Summer Sale' exists",
+        "locatorHint": "#campaigns-table",
+        "assertion": "Summer Sale"
+      },
+      {
+        "id": "s9",
+        "action": "tap",
+        "targetDescription": "Open actions for 'Summer Sale'",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s10",
+        "action": "tap",
+        "targetDescription": "Select Copy Campaign from menu",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s11",
+        "action": "assertVisible",
+        "targetDescription": "Copy Campaign modal header visible",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "expectCopyCampaignModalHeaderVisible"
+      },
+      {
+        "id": "s12",
+        "action": "tap",
+        "targetDescription": "Click Copy Now",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickCopyNow"
+      },
+      {
+        "id": "s13",
+        "action": "assertVisible",
+        "targetDescription": "Copy progress spinner shows",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "expectLoadingImageVisible"
+      },
+      {
+        "id": "s14",
+        "action": "assertHidden",
+        "targetDescription": "Copy progress spinner hidden",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "expectLoadingImageHidden"
+      },
+      {
+        "id": "s15",
+        "action": "assertVisible",
+        "targetDescription": "Basic Information page visible in Copy Mode",
+        "screenName": "BasicInformationPage",
+        "pageObjectMethod": "expectBasicInformationVisible"
+      },
+      {
+        "id": "s16",
+        "action": "assertVisible",
+        "targetDescription": "Copy Mode banner visible",
+        "locatorHint": "[data-testid=copy-mode-banner]"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}

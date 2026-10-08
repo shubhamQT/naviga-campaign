@@ -1,0 +1,138 @@
+{
+  "id": "ce73b975-77cb-4d36-8338-d8b41ca0c594",
+  "testPlanId": "9d9ae658-a598-4348-ab6e-c7dc900b5ab3",
+  "requirementId": "a8409d58-5a57-41da-a2a7-434d9a5eb5f0",
+  "suiteName": "[NSSP-2034] Copy Campaign with SLA Validation — Functional Happy Paths",
+  "case": {
+    "id": "ce73b975-77cb-4d36-8338-d8b41ca0c594",
+    "title": "Payment information is reset; billing may prefill; new Naviga Pay transaction required",
+    "priority": "P0",
+    "platforms": [
+      "chrome"
+    ],
+    "preconditions": [],
+    "steps": [
+      {
+        "id": "s1",
+        "action": "openUrl",
+        "targetDescription": "Open Login",
+        "value": "https://app.propel.example/login"
+      },
+      {
+        "id": "s2",
+        "action": "fill",
+        "targetDescription": "Email",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillEmail",
+        "value": "user@advertiser.test"
+      },
+      {
+        "id": "s3",
+        "action": "fill",
+        "targetDescription": "Password",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "fillPassword",
+        "value": "Password123!"
+      },
+      {
+        "id": "s4",
+        "action": "tap",
+        "targetDescription": "Log In",
+        "screenName": "LoginPage",
+        "pageObjectMethod": "clickLogIn"
+      },
+      {
+        "id": "s5",
+        "action": "tap",
+        "targetDescription": "Open Campaigns",
+        "screenName": "DashboardPage",
+        "pageObjectMethod": "clickCampaigns"
+      },
+      {
+        "id": "s6",
+        "action": "tap",
+        "targetDescription": "Open actions and copy",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickMuiTableRoot1TableButton"
+      },
+      {
+        "id": "s7",
+        "action": "tap",
+        "targetDescription": "Copy Campaign",
+        "locatorHint": ".menu [data-testid=copy-campaign]"
+      },
+      {
+        "id": "s8",
+        "action": "tap",
+        "targetDescription": "Copy Now",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "clickCopyNow"
+      },
+      {
+        "id": "s9",
+        "action": "assertHidden",
+        "targetDescription": "Spinner hidden",
+        "screenName": "CampaignsPage",
+        "pageObjectMethod": "expectLoadingImageHidden"
+      },
+      {
+        "id": "s10",
+        "action": "tap",
+        "targetDescription": "Open Billing Information step",
+        "locatorHint": "[data-testid=nav-billing]"
+      },
+      {
+        "id": "s11",
+        "action": "assertVisible",
+        "targetDescription": "Billing Information page visible",
+        "screenName": "BillingInformationPage",
+        "pageObjectMethod": "expectBillingInformationVisible"
+      },
+      {
+        "id": "s12",
+        "action": "assertValue",
+        "targetDescription": "Billing Address Line1 may be prefilled",
+        "screenName": "BillingInformationPage",
+        "pageObjectMethod": "getAddressLine1Value",
+        "assertion": "123 Main St"
+      },
+      {
+        "id": "s13",
+        "action": "tap",
+        "targetDescription": "Proceed to Review & Payment",
+        "locatorHint": "[data-testid=nav-review-payment]"
+      },
+      {
+        "id": "s14",
+        "action": "assertVisible",
+        "targetDescription": "Payment Method section visible",
+        "screenName": "CampaignBookingPage",
+        "pageObjectMethod": "expectPaymentMethodVisible"
+      },
+      {
+        "id": "s15",
+        "action": "assertHidden",
+        "targetDescription": "No prior payment transaction exists",
+        "locatorHint": "[data-testid=payment-transaction-id]"
+      },
+      {
+        "id": "s16",
+        "action": "tap",
+        "targetDescription": "Start new payment via Confirm Payment",
+        "screenName": "CampaignBookingPage",
+        "pageObjectMethod": "clickConfirmPayment"
+      },
+      {
+        "id": "s17",
+        "action": "assertVisible",
+        "targetDescription": "Naviga Pay Payment page shown",
+        "screenName": "PaymentPage",
+        "pageObjectMethod": "expectPaymentVisible"
+      }
+    ],
+    "tags": [
+      "@functional",
+      "@regression"
+    ]
+  }
+}
