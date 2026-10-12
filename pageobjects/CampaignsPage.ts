@@ -284,10 +284,13 @@ export class CampaignsPage {
 
   async expectLoadingImageHidden(timeoutMs = 30_000): Promise<void> {
     await expectHidden(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
+    await this.page.waitForTimeout(1000);
   }
 
-  async waitForHiddenLoadingImage(timeoutMs = 30_000): Promise<void> {
-    await waitForHidden(webLocator(this.page, CampaignsPage.L.loadingImage), timeoutMs);
+  async waitForHiddenLoadingImage(timeoutMs = 30_000, appearGraceMs = 3_000): Promise<void> {
+    const loc = webLocator(this.page, CampaignsPage.L.loadingImage);
+    await loc.waitFor({ state: "visible", timeout: appearGraceMs }).catch(() => {});
+    await loc.waitFor({ state: "hidden", timeout: timeoutMs });
   }
 
   async expectCampaignCopiedSuccessfullyVisible(timeoutMs = 30_000, soft = true): Promise<void> {

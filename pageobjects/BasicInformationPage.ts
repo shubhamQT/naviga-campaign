@@ -43,7 +43,7 @@ import {
 export class BasicInformationPage {
   private static readonly L = {
     basicInformation: { strategy: 'role' as const, value: '[[Basic information]]', role: 'button', actionKind: 'button' as const },
-    basicInformationLetSGet: { strategy: 'role' as const, value: 'Basic information Let’s get started with your', role: 'button', actionKind: 'button' as const },
+    basicInformationLetSGet: { strategy: 'css' as const, value: '.accordian-basic-info', actionKind: 'generic' as const },
     campaignName: { strategy: 'css' as const, value: '#campaignName[name="description"]', role: 'textbox', actionKind: 'textbox' as const },
     saveDraft: { strategy: 'role' as const, value: 'Save Draft', role: 'button', actionKind: 'button' as const },
     campaignNameHeader: { strategy: 'css' as const, value: '.newcampaign-review-summary-desktop [aria-label*="Copy of "]', actionKind: 'generic' as const },
@@ -52,6 +52,7 @@ export class BasicInformationPage {
     placementAndFormat: { strategy: 'role' as const, value: 'Placement and format', role: 'heading', level: 6, actionKind: 'text' as const },
     schedule: { strategy: 'role' as const, value: 'Schedule', role: 'heading', level: 6, actionKind: 'text' as const },
     creative: { strategy: 'role' as const, value: 'Creative', role: 'heading', level: 6, actionKind: 'text' as const },
+    creativeCount: { strategy: 'text' as const, value: '0', actionKind: 'generic' as const },
     reviewAndPayment: { strategy: 'role' as const, value: 'Review and Payment', role: 'heading', level: 6, actionKind: 'text' as const },
     promoCode: { strategy: 'css' as const, value: '#promo-code-input-desktop[name="promoCode"]', role: 'textbox', actionKind: 'textbox' as const },
     chooseYourCampaignChannel: { strategy: 'role' as const, value: 'Choose your Campaign Channel', role: 'heading', level: 6, actionKind: 'text' as const },
@@ -66,6 +67,10 @@ export class BasicInformationPage {
     targetingOptions: { strategy: 'role' as const, value: 'Targeting Options', role: 'heading', level: 6, actionKind: 'text' as const },
     productSelection: { strategy: 'role' as const, value: 'Product Selection', role: 'heading', level: 6, actionKind: 'text' as const },
     budgetSchedule: { strategy: 'role' as const, value: 'Budget & Schedule', role: 'heading', level: 6, actionKind: 'text' as const },
+    digitalRight: { strategy: 'text' as const, value: 'Digital', actionKind: 'generic' as const },
+    targetedCpmRateRight: { strategy: 'text' as const, value: 'Targeted CPM Rate', actionKind: 'generic' as const },
+    creativeRight: { strategy: 'text' as const, value: 'Creative', actionKind: 'generic' as const },
+    geographicTargeting: { strategy: 'text' as const, value: 'GeographicTargeting', actionKind: 'generic' as const },
   } as const;
 
   constructor(private readonly page: Page) {}
@@ -116,6 +121,14 @@ export class BasicInformationPage {
 
   async expectSaveDraftVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, BasicInformationPage.L.saveDraft), timeoutMs, soft);
+  }
+
+  async expectCreativeCountVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, BasicInformationPage.L.creativeCount), timeoutMs, soft);
+  }
+
+  async expectCreativeCount(count: number, timeoutMs = 30_000): Promise<void> {
+    await expectCount(webLocator(this.page, BasicInformationPage.L.creativeCount), count, timeoutMs);
   }
 
   async getInnerTextCampaignNameHeader(): Promise<string> {
@@ -623,62 +636,6 @@ export class BasicInformationPage {
 
   async scrollScheduleIntoView(): Promise<void> {
     await scrollIntoViewWhenVisible(webLocator(this.page, BasicInformationPage.L.schedule));
-  }
-
-  async clickCreative(): Promise<void> {
-    await clickWhenVisible(webLocator(this.page, BasicInformationPage.L.creative));
-  }
-
-  async doubleClickCreative(): Promise<void> {
-    await doubleClickWhenVisible(webLocator(this.page, BasicInformationPage.L.creative));
-  }
-
-  async longPressCreative(): Promise<void> {
-    await longPressWhenVisible(webLocator(this.page, BasicInformationPage.L.creative));
-  }
-
-  async expectCreativeHidden(timeoutMs = 30_000): Promise<void> {
-    await expectHidden(webLocator(this.page, BasicInformationPage.L.creative), timeoutMs);
-  }
-
-  async expectCreativeText(expected: string, timeoutMs = 30_000): Promise<void> {
-    await expectText(webLocator(this.page, BasicInformationPage.L.creative), expected, timeoutMs);
-  }
-
-  async expectCreativeContainsText(substring: string, timeoutMs = 30_000): Promise<void> {
-    await expectContainsText(webLocator(this.page, BasicInformationPage.L.creative), substring, timeoutMs);
-  }
-
-  async expectCreativeValue(value: string, timeoutMs = 30_000): Promise<void> {
-    await expectValue(webLocator(this.page, BasicInformationPage.L.creative), value, timeoutMs);
-  }
-
-  async expectCreativeEnabled(timeoutMs = 30_000): Promise<void> {
-    await expectEnabled(webLocator(this.page, BasicInformationPage.L.creative), timeoutMs);
-  }
-
-  async expectCreativeDisabled(timeoutMs = 30_000): Promise<void> {
-    await expectDisabled(webLocator(this.page, BasicInformationPage.L.creative), timeoutMs);
-  }
-
-  async expectCreativeChecked(timeoutMs = 30_000): Promise<void> {
-    await expectChecked(webLocator(this.page, BasicInformationPage.L.creative), timeoutMs);
-  }
-
-  async expectCreativeUnchecked(timeoutMs = 30_000): Promise<void> {
-    await expectUnchecked(webLocator(this.page, BasicInformationPage.L.creative), timeoutMs);
-  }
-
-  async expectCreativeFocused(timeoutMs = 30_000): Promise<void> {
-    await expectFocused(webLocator(this.page, BasicInformationPage.L.creative), timeoutMs);
-  }
-
-  async expectCreativeCount(count: number, timeoutMs = 30_000): Promise<void> {
-    await expectCount(webLocator(this.page, BasicInformationPage.L.creative), count, timeoutMs);
-  }
-
-  async scrollCreativeIntoView(): Promise<void> {
-    await scrollIntoViewWhenVisible(webLocator(this.page, BasicInformationPage.L.creative));
   }
 
   async clickReviewAndPayment(): Promise<void> {
@@ -1423,6 +1380,22 @@ export class BasicInformationPage {
 
   async scrollBudgetScheduleIntoView(): Promise<void> {
     await scrollIntoViewWhenVisible(webLocator(this.page, BasicInformationPage.L.budgetSchedule));
+  }
+
+  async expectDigitalRightVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, BasicInformationPage.L.digitalRight), timeoutMs, soft);
+  }
+
+  async expectTargetedCpmRateRightVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, BasicInformationPage.L.targetedCpmRateRight), timeoutMs, soft);
+  }
+
+  async expectCreativeRightVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, BasicInformationPage.L.creativeRight), timeoutMs, soft);
+  }
+
+  async expectGeographicTargetingVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, BasicInformationPage.L.geographicTargeting), timeoutMs, soft);
   }
 
 }

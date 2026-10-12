@@ -52,7 +52,8 @@ export class CampaignBookingPage {
     poNumber: { strategy: 'css' as const, value: '#poNumber[name="poNumber"]', role: 'textbox', actionKind: 'textbox' as const },
     paymentMethod: { strategy: 'role' as const, value: 'Payment Method', role: 'heading', level: 6, actionKind: 'text' as const },
     cancel: { strategy: 'role' as const, value: 'Cancel', role: 'button', actionKind: 'button' as const },
-    confirmPayment: { strategy: 'role' as const, value: 'Confirm Payment $526.05', role: 'button', actionKind: 'button' as const },
+    bookCampaign: { strategy: 'role' as const, value: 'Book Campaign', role: 'button', actionKind: 'button' as const },
+    confirmPayment: { strategy: 'css' as const, value: 'button[data-analytics-action="new_campaign_confirm_payment"]', actionKind: 'generic' as const },
     close: { strategy: 'role' as const, value: 'Close', role: 'button', actionKind: 'button' as const },
     paymentSuccessful: { strategy: 'role' as const, value: 'Payment Successful!', role: 'heading', level: 6, actionKind: 'text' as const },
     continueToDashboard: { strategy: 'role' as const, value: 'Continue to Dashboard', role: 'button', actionKind: 'button' as const },
@@ -183,6 +184,14 @@ export class CampaignBookingPage {
   async expectConfirmPaymentVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, CampaignBookingPage.L.confirmPayment), timeoutMs, soft);
   }
+  
+  async clickBookCampaign(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, CampaignBookingPage.L.bookCampaign));
+  }
+
+  async expectBookCampaignVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, CampaignBookingPage.L.bookCampaign), timeoutMs, soft);
+  }  
 
   async clickClose(): Promise<void> {
     await clickWhenVisible(webLocator(this.page, CampaignBookingPage.L.close));

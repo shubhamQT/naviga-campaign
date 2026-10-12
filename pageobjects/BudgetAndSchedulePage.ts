@@ -44,6 +44,7 @@ import { webTable, type WebTable } from "../support/web-table";
 export class BudgetAndSchedulePage {
   private static readonly L = {
     budgetSchedule: { strategy: 'role' as const, value: '[[Budget & Schedule]]', role: 'button', actionKind: 'button' as const },
+    budgetAndSchedule: { strategy: 'css' as const, value: '.accordian-budget-schedule-container', actionKind: 'generic' as const },
     campaignDuration: { strategy: 'css' as const, value: '#campaign-duration-field[name="campaign-duration-field"]', role: 'textbox', actionKind: 'textbox' as const },
     totalBudget: { strategy: 'css' as const, value: '#budget-field[name="budget-field"]', role: 'textbox', actionKind: 'textbox' as const },
     swaphorizicon: { strategy: 'testId' as const, value: 'SwapHorizIcon', role: 'button', actionKind: 'button' as const },
@@ -77,6 +78,14 @@ export class BudgetAndSchedulePage {
 
   async expectBudgetScheduleVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, BudgetAndSchedulePage.L.budgetSchedule), timeoutMs, soft);
+  }
+  
+  async clickBudgetAndSchedule(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, BudgetAndSchedulePage.L.budgetAndSchedule));
+  }
+
+  async expectBudgetAndScheduleVisible(timeoutMs = 30_000, soft = true): Promise<void> {
+    await expectVisible(webLocator(this.page, BudgetAndSchedulePage.L.budgetAndSchedule), timeoutMs, soft);
   }
 
   async fillCampaignDuration(value: string): Promise<void> {
@@ -1137,4 +1146,22 @@ export class BudgetAndSchedulePage {
     await scrollIntoViewWhenVisible(webLocator(this.page, BudgetAndSchedulePage.L.previousMonth));
   }
 
+  async selectCalenderDate() {
+    const calenderIcon = await this.page.locator('button[aria-label*="Choose date,"]');
+    const okButton = await this.page.getByRole('button', { name: 'OK', exact: true });
+    
+    // Select start date - pre selected
+    await waitForVisible(calenderIcon.first());
+    await clickWhenVisible(calenderIcon.first());
+    await this.clickNextMonth();
+    await this.page.getByRole('gridcell', { name: '10', exact: true }).click();
+    await clickWhenVisible(okButton.first());
+
+    // Select end date - pre selected last month day
+    await waitForVisible(calenderIcon.last());
+    await clickWhenVisible(calenderIcon.last());
+    await this.clickNextMonth();
+    await this.page.getByRole('gridcell', { name: '20', exact: true }).click();
+    await clickWhenVisible(okButton.first());
+  }
 }

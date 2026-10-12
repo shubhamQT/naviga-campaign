@@ -44,7 +44,7 @@ export class AddPublicationsPage {
   private static readonly L = {
     collapsedLogo: { strategy: 'css' as const, value: '#navbar-logo-collapsed', role: 'img', actionKind: 'generic' as const },
     addPublication: { strategy: 'role' as const, value: '[[Add Publication]]', role: 'button', actionKind: 'button' as const },
-    addPublicationsSelectPublication: { strategy: 'role' as const, value: 'Add Publications Select publication ​ ​', role: 'button', actionKind: 'button' as const },
+    addPublicationsSelectPublication: { strategy: 'css' as const, value: '.accordian-add-publication', actionKind: 'generic' as const },
     search: { strategy: 'css' as const, value: '#publications-search-field[name="search"]', role: 'textbox', actionKind: 'textbox' as const },
     bikingMagLogo: { strategy: 'altText' as const, value: 'Biking Mag logo', role: 'img', actionKind: 'generic' as const },
     theNavigatorWebsiteLogo: { strategy: 'altText' as const, value: 'The Navigator Website logo', role: 'img', actionKind: 'generic' as const },

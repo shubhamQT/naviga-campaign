@@ -43,6 +43,7 @@ import {
 export class BillingInformationPage {
   private static readonly L = {
     billingInformation: { strategy: 'role' as const, value: '[[Billing Information]]', role: 'button', actionKind: 'button' as const },
+    billingInformationHeader: { strategy: 'css' as const, value: '.accordian-billing-address', actionKind: 'generic' as const },
     addressLine1: { strategy: 'css' as const, value: '#addressLine1[name="addressLine1"]', role: 'textbox', actionKind: 'textbox' as const },
     addressLine2: { strategy: 'css' as const, value: '#addressLine2[name="addressLine2"]', role: 'textbox', actionKind: 'textbox' as const },
     countryUnitedStates: { strategy: 'css' as const, value: '#mui-component-select-countryID', role: 'combobox', actionKind: 'generic' as const },
@@ -65,6 +66,10 @@ export class BillingInformationPage {
 
   async expectBillingInformationVisible(timeoutMs = 30_000, soft = true): Promise<void> {
     await expectVisible(webLocator(this.page, BillingInformationPage.L.billingInformation), timeoutMs, soft);
+  }
+  
+  async clickBillingInformationHeader(): Promise<void> {
+    await clickWhenVisible(webLocator(this.page, BillingInformationPage.L.billingInformationHeader));
   }
 
   async fillAddressLine1(value: string): Promise<void> {
